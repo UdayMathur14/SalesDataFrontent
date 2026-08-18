@@ -21,38 +21,37 @@
     <article>
       <div class="stat-icon violet">♧</div>
       <div>
-        <span>Total customers</span><strong>{{ customers().length }}</strong
-        ><small><b>+8.4%</b> vs last month</small>
+        <span>Total customers</span><strong>{{ totalCount() }}</strong
+        ><small>Backend record count</small>
       </div>
       <i>⌁</i>
     </article>
     <article>
       <div class="stat-icon green">✓</div>
       <div>
-        <span>Active accounts</span><strong>{{ activeCount() }}</strong
-        ><small
-          >{{ (activeCount() / customers().length) * 100 | number: '1.0-0' }}% of total
-          customers</small
-        >
+        <span>Loaded records</span><strong>{{ customers().length }}</strong
+        ><small>Current API page</small>
       </div>
       <i>⌁</i>
     </article>
     <article>
       <div class="stat-icon blue">◇</div>
       <div>
-        <span>Enterprise</span><strong>{{ enterpriseCount() }}</strong
-        ><small>High-value accounts</small>
+        <span>Countries on page</span><strong>{{ countryCount() }}</strong
+        ><small>Distinct customer locations</small>
       </div>
       <i>⌁</i>
     </article>
     <article>
       <div class="stat-icon orange">＋</div>
       <div>
-        <span>Added this month</span><strong>8</strong><small><b>+3</b> from last month</small>
+        <span>Complete profiles</span><strong>{{ completeCount() }}</strong
+        ><small>Email, phone and country present</small>
       </div>
       <i>⌁</i>
     </article>
   </div>
+  <div class="api-banner" *ngIf="apiError()">{{ apiError() }}</div>
   <section class="table-card">
     <div class="toolbar">
       <div class="searchbox">
@@ -66,20 +65,22 @@
       </div>
       <div class="filters">
         <select #categorySelect (change)="setCategory(categorySelect.value)">
+          <option value="">All categories</option>
           <option *ngFor="let item of categories">{{ item }}</option></select
-        ><select #statusSelect (change)="setStatus(statusSelect.value)">
-          <option>All status</option>
-          <option>Active</option>
-          <option>Inactive</option></select
+        ><select #countrySelect (change)="setCountry(countrySelect.value)">
+          <option value="">All countries</option>
+          <option *ngFor="let item of countries()" [value]="item.countryName">
+            {{ item.countryName }}
+          </option></select
         ><button
           class="icon-btn"
           (click)="
             setSearch('');
             searchInput.value = '';
-            setCategory('All categories');
-            categorySelect.value = 'All categories';
-            setStatus('All status');
-            statusSelect.value = 'All status'
+            setCategory('');
+            categorySelect.value = '';
+            setCountry('');
+            countrySelect.value = ''
           "
         >
           ↻
@@ -107,7 +108,7 @@
             <th>Contact</th>
             <th>Location</th>
             <th>Category</th>
-            <th>Status</th>
+            <th>Created on</th>
             <th></th>
           </tr>
         </thead>
@@ -125,7 +126,7 @@
                 <div class="company-logo">{{ c.company.charAt(0) }}</div>
                 <div>
                   <strong>{{ c.company }}</strong
-                  ><small>{{ c.code }} · Added {{ c.createdAt }}</small>
+                  ><small>{{ c.code || 'No code' }}</small>
                 </div>
               </div>
             </td>
@@ -145,9 +146,7 @@
               <span class="category">{{ c.category }}</span>
             </td>
             <td>
-              <span class="status" [class.inactive]="c.status === 'Inactive'"
-                ><i></i>{{ c.status }}</span
-              >
+              <strong class="normal">{{ c.createdOn | date: 'dd-MM-yyyy' }}</strong>
             </td>
             <td><button class="more" (click)="openEdit(c)">•••</button></td>
           </tr>
@@ -165,19 +164,19 @@
         >Showing
         <strong
           >{{ filtered().length ? (page() - 1) * pageSize() + 1 : 0 }}–{{
-            Math.min(page() * pageSize(), filtered().length)
+            Math.min(page() * pageSize(), totalCount())
           }}</strong
         >
-        of <strong>{{ filtered().length }}</strong> customers</span
+        of <strong>{{ totalCount() }}</strong> customers</span
       >
       <div>
         <button (click)="setPage(page() - 1)" [disabled]="page() === 1">‹</button
         ><button
-          *ngFor="let p of [].constructor(totalPages()); let i = index"
-          [class.active]="page() === i + 1"
-          (click)="setPage(i + 1)"
+          *ngFor="let p of visiblePages()"
+          [class.active]="page() === p"
+          (click)="setPage(p)"
         >
-          {{ i + 1 }}</button
+          {{ p }}</button
         ><button (click)="setPage(page() + 1)" [disabled]="page() === totalPages()">›</button>
       </div>
     </div>
@@ -210,12 +209,7 @@
         ><label
           >Category <em>*</em
           ><select formControlName="category">
-            <option *ngFor="let item of categories.slice(1)">{{ item }}</option>
-          </select></label
-        ><label
-          >Account status<select formControlName="status">
-            <option>Active</option>
-            <option>Inactive</option>
+            <option *ngFor="let item of categories">{{ item }}</option>
           </select></label
         >
       </div>
@@ -243,7 +237,8 @@
             *ngIf="form.controls.phone.touched && form.controls.phone.invalid"
             >Enter a valid phone number</small
           ></label
-        >
+        ><label>Contact number 2<input formControlName="phone2" placeholder="Optional" /></label
+        ><label>Contact number 3<input formControlName="phone3" placeholder="Optional" /></label>
       </div>
     </div>
     <div class="form-section">
@@ -253,7 +248,10 @@
         <label class="wide"
           >Country <em>*</em
           ><select formControlName="country">
-            <option *ngFor="let item of countries">{{ item }}</option>
+            <option value="">Select country</option>
+            <option *ngFor="let item of countries()" [value]="item.countryName">
+              {{ item.countryName }}
+            </option>
           </select></label
         ><label>State / Province<input formControlName="state" placeholder="e.g. Delhi" /></label
         ><label>City<input formControlName="city" placeholder="e.g. New Delhi" /></label>

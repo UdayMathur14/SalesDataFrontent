@@ -1,0 +1,150 @@
+<section class="sales-page">
+  <div class="sales-head">
+    <div>
+      <p>SALES · IMPORT</p>
+      <h1>Import Sales Data</h1>
+      <span>Upload directly to the backend classification engine.</span>
+    </div>
+    <button class="outline-action" (click)="downloadTemplate()">
+      ⇩ Download {{ mode() === 'Event' ? 'event' : 'sales' }} template
+    </button>
+  </div>
+  <div class="workflow-steps">
+    <div class="active">
+      <b>1</b><span><strong>Choose source</strong><small>Select import mode</small></span>
+    </div>
+    <i></i>
+    <div>
+      <b>2</b><span><strong>Upload to API</strong><small>Backend validates every row</small></span>
+    </div>
+    <i></i>
+    <div>
+      <b>3</b><span><strong>Review result</strong><small>Clean, blocked and invalid</small></span>
+    </div>
+  </div>
+  <div class="import-layout">
+    <section class="sales-card import-card">
+      <div class="card-heading">
+        <span class="card-icon">↥</span>
+        <div>
+          <h2>New backend import</h2>
+          <p>Records are classified and stored by the Sales API.</p>
+        </div>
+      </div>
+      <div class="source-tabs">
+        <button
+          [class.active]="mode() === 'Standard'"
+          (click)="mode.set('Standard'); file.set(null); result.set(null)"
+        >
+          <span>▦</span><strong>Standard leads</strong
+          ><small>General sales prospect list</small></button
+        ><button
+          [class.active]="mode() === 'Event'"
+          (click)="mode.set('Event'); file.set(null); result.set(null)"
+        >
+          <span>◫</span><strong>Event contacts</strong><small>Contacts from one event</small>
+        </button>
+      </div>
+      <label *ngIf="mode() === 'Event'"
+        >Event name <em>*</em
+        ><input
+          #eventInput
+          (input)="eventName = eventInput.value"
+          placeholder="Enter the event name" /></label
+      ><label
+        >Excel file <em>*</em>
+        <div class="big-drop">
+          <input type="file" accept=".xlsx,.xls" (change)="chooseFile($event)" /><span>{{
+            file() ? '✓' : '▤'
+          }}</span
+          ><strong>{{ file()?.name || 'Drop your backend template here' }}</strong
+          ><small>{{
+            file() ? 'Ready to upload' : 'or click to browse · XLSX / XLS · Maximum 25 MB'
+          }}</small
+          ><b>{{ file() ? 'Change file' : 'Browse files' }}</b>
+        </div></label
+      >
+      <div class="api-error" *ngIf="error()">! {{ error() }}</div>
+      <div class="import-actions">
+        <button class="secondary-action" (click)="file.set(null); error.set('')">Clear</button
+        ><button class="primary-action" (click)="upload()" [disabled]="uploading()">
+          {{ uploading() ? 'Uploading…' : 'Import records' }} <span>→</span>
+        </button>
+      </div>
+    </section>
+    <aside class="sales-card guide-card">
+      <div class="card-heading">
+        <span class="card-icon soft">✓</span>
+        <div>
+          <h2>Backend validation</h2>
+          <p>What the API checks automatically.</p>
+        </div>
+      </div>
+      <ul>
+        <li>
+          <span>1</span>
+          <div>
+            <strong>Required values</strong><small>Company, category and contact details.</small>
+          </div>
+        </li>
+        <li>
+          <span>2</span>
+          <div>
+            <strong>Customer duplicates</strong><small>Matches against Customer Master.</small>
+          </div>
+        </li>
+        <li>
+          <span>3</span>
+          <div>
+            <strong>Cross-user ownership</strong
+            ><small>Email, domain, phone and company rules.</small>
+          </div>
+        </li>
+        <li>
+          <span>4</span>
+          <div>
+            <strong>Clean or blocked</strong><small>Records are saved to the correct table.</small>
+          </div>
+        </li>
+      </ul>
+      <div class="secure-note">
+        <span>♢</span>
+        <p><strong>Connected to Sales API</strong>The file is submitted as multipart form data.</p>
+      </div>
+    </aside>
+  </div>
+  <section class="sales-card batches">
+    <div class="card-heading">
+      <span class="card-icon soft">▤</span>
+      <div>
+        <h2>Latest import result</h2>
+        <p>Response returned by the backend.</p>
+      </div>
+    </div>
+    <div class="clean-empty" *ngIf="!result()">
+      <span>↥</span><strong>No import submitted</strong
+      ><small>Your backend import result will appear here.</small>
+    </div>
+    <div class="result-summary" *ngIf="result()">
+      <article>
+        <span class="metric green">✓</span>
+        <div>
+          <small>Clean records</small><strong>{{ result()?.cleanCount }}</strong>
+        </div>
+      </article>
+      <article>
+        <span class="metric red">×</span>
+        <div>
+          <small>Blocked records</small><strong>{{ result()?.blockedCount }}</strong>
+        </div>
+      </article>
+      <article>
+        <span class="metric amber">!</span>
+        <div>
+          <small>Invalid rows</small><strong>{{ result()?.invalidCount }}</strong>
+        </div>
+      </article>
+    </div>
+  </section>
+</section>
+<div class="sales-toast" *ngIf="message()"><span>✓</span>{{ message() }}</div>

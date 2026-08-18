@@ -1,0 +1,178 @@
+<section class="sales-page">
+  <div class="sales-head">
+    <div>
+      <p>SALES · RECORDS</p>
+      <h1>View Lead Data</h1>
+      <span>Live clean and blocked records from the Sales API.</span>
+    </div>
+    <a class="primary-link" routerLink="/sales/import">＋ Import data</a>
+  </div>
+  <div class="data-stats">
+    <article>
+      <span class="metric violet">◎</span>
+      <div>
+        <small>Total records</small><strong>{{ store.total() }}</strong>
+        <p>Backend record count</p>
+      </div>
+    </article>
+    <article>
+      <span class="metric green">✓</span>
+      <div>
+        <small>Clean leads</small><strong>{{ store.clean() }}</strong>
+        <p>Ready for outreach</p>
+      </div>
+    </article>
+    <article>
+      <span class="metric red">×</span>
+      <div>
+        <small>Blocked leads</small><strong>{{ store.blocked() }}</strong>
+        <p>Duplicate or owned records</p>
+      </div>
+    </article>
+    <article>
+      <span class="metric blue">▦</span>
+      <div>
+        <small>Loaded on page</small><strong>{{ store.leads().length }}</strong>
+        <p>Maximum 50 per type</p>
+      </div>
+    </article>
+  </div>
+  <section class="sales-card records-card">
+    <div class="record-top">
+      <div>
+        <p>LEAD REGISTER</p>
+        <h2>Sales lead records</h2>
+      </div>
+      <div class="record-tabs">
+        <button [class.active]="tab() === 'All'" (click)="setTab('All')">
+          All <b>{{ store.total() }}</b></button
+        ><button [class.active]="tab() === 'Clean'" (click)="setTab('Clean')">
+          <i class="green-dot"></i>Clean <b>{{ store.clean() }}</b></button
+        ><button [class.active]="tab() === 'Blocked'" (click)="setTab('Blocked')">
+          <i class="red-dot"></i>Blocked <b>{{ store.blocked() }}</b>
+        </button>
+      </div>
+    </div>
+    <div class="api-filters">
+      <div class="record-search">
+        <span>⌕</span
+        ><input
+          #q
+          [value]="query()"
+          (input)="query.set(q.value)"
+          (keyup.enter)="search()"
+          placeholder="Search company, contact, email or phone..."
+        />
+      </div>
+      <select #cat (change)="category.set(cat.value)">
+        <option value="">All categories</option>
+        <option *ngFor="let x of options().categories">{{ x }}</option></select
+      ><select #evt (change)="event.set(evt.value)">
+        <option value="">All events</option>
+        <option *ngFor="let x of options().events">{{ x }}</option></select
+      ><select #usr (change)="owner.set(usr.value)">
+        <option value="">All users</option>
+        <option *ngFor="let x of options().users">{{ x }}</option></select
+      ><input
+        class="date-field"
+        #from
+        [value]="fromDate()"
+        (input)="fromDate.set(from.value)"
+        placeholder="From dd-MM-yyyy"
+        maxlength="10"
+      /><input
+        class="date-field"
+        #to
+        [value]="toDate()"
+        (input)="toDate.set(to.value)"
+        placeholder="To dd-MM-yyyy"
+        maxlength="10"
+      /><button class="search-action" (click)="search()">Search</button
+      ><button
+        class="reset-action"
+        (click)="
+          reset();
+          q.value = '';
+          cat.value = '';
+          evt.value = '';
+          usr.value = '';
+          from.value = '';
+          to.value = ''
+        "
+      >
+        ↻
+      </button>
+    </div>
+    <div class="filter-message error" *ngIf="dateError()">{{ dateError() }}</div>
+    <div class="filter-message error" *ngIf="store.error()">{{ store.error() }}</div>
+    <div class="records-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Company name</th>
+            <th>Contact person</th>
+            <th>Email</th>
+            <th>Contact number</th>
+            <th>{{ tab() === 'Blocked' ? 'Blocked on' : 'Created on' }}</th>
+            <th>{{ tab() === 'Blocked' ? 'Locked by' : 'Created by' }}</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lead of store.leads()">
+            <td>
+              <span class="type-tag">{{ lead.category || '—' }}</span>
+            </td>
+            <td>
+              <div class="lead-company">
+                <span>{{ (lead.companyName || '?').charAt(0) }}</span>
+                <div>
+                  <strong>{{ lead.companyName || '—' }}</strong
+                  ><small>{{ lead.city || lead.eventName || '—' }}</small>
+                </div>
+              </div>
+            </td>
+            <td>
+              <strong>{{ lead.contactPerson || '—' }}</strong>
+            </td>
+            <td>
+              <a>{{ lead.customerEmail || '—' }}</a>
+            </td>
+            <td>{{ lead.customerContactNumber1 || '—' }}</td>
+            <td>{{ lead.createdOn | date: 'dd-MM-yyyy' }}</td>
+            <td>
+              <strong>{{
+                lead.recordType === 'Blocked' ? lead.blockedBy || '—' : lead.createdBy || '—'
+              }}</strong
+              ><small *ngIf="lead.blockReason">{{ lead.blockReason }}</small>
+            </td>
+            <td>
+              <span class="record-state" [class.blocked]="lead.recordType === 'Blocked'"
+                ><i></i>{{ lead.recordType }}</span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="clean-empty table-empty" *ngIf="!store.loading() && !store.leads().length">
+        <span>▦</span><strong>No sales records found</strong
+        ><small>Import data or adjust your filters.</small
+        ><a routerLink="/sales/import">Go to Import Data →</a>
+      </div>
+      <div class="clean-empty table-empty" *ngIf="store.loading()">
+        <span>◌</span><strong>Loading records…</strong
+        ><small>Fetching live data from the API.</small>
+      </div>
+    </div>
+    <div class="records-foot">
+      <span
+        >Showing <strong>{{ store.leads().length }}</strong> of
+        <strong>{{ store.total() }}</strong> records</span
+      >
+      <div>
+        <button disabled>‹</button><button class="active">1</button><button disabled>›</button>
+      </div>
+    </div>
+  </section>
+</section>

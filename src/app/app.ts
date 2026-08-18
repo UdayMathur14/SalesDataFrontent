@@ -12,4 +12,11 @@ export class App {
   readonly sidebarOpen=signal(false);
   constructor(public router:Router){}
   get isSales(){return this.router.url.startsWith('/sales')}
+  get pageTitle(){
+    if(this.router.url.startsWith('/sales/import'))return 'Import Data';
+    if(this.router.url.startsWith('/sales/view'))return 'View Leads';
+    if(this.router.url.startsWith('/sales/export'))return 'Export Data';
+    if(this.router.url.startsWith('/sales/find'))return 'Find & Verify';
+    return 'Customer Master';
+  }
 }

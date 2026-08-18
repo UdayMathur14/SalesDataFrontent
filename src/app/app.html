@@ -5,15 +5,15 @@
     <div class="workspace"><span>NV</span><div><strong>Nexora Ventures</strong><small>Business workspace</small></div><b>⌄</b></div>
     <nav>
       <p>Overview</p><a><span>⌂</span> Dashboard</a>
-      <p>Master Data</p><a routerLink="/customer-master" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>◫</span> Customer Master <i>12</i></a><a><span>◇</span> Product Master</a>
-      <p>Sales Workspace</p><a routerLink="/sales/lead-data" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>▦</span> Lead Management <i>3</i></a><a><span>⌁</span> Opportunities</a><a><span>▤</span> Sales Orders</a>
+      <p>Master Data</p><a routerLink="/customer-master" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>◫</span> Customer Master</a>
+      <p>Sales Workspace</p><a routerLink="/sales/import" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>↥</span> Import Data</a><a routerLink="/sales/view" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>▦</span> View Leads</a><a routerLink="/sales/export" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>⇩</span> Export Data</a><a routerLink="/sales/find" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>⌕</span> Find & Verify</a>
       <p>Administration</p><a><span>♧</span> Team Members</a><a><span>⚙</span> Settings</a>
     </nav>
     <div class="sidebar-help"><span>?</span><strong>Need some help?</strong><small>Check our documentation</small><button>Visit help center ↗</button></div>
     <div class="profile"><div class="avatar">RS</div><div><strong>Rajnish Singh</strong><small>Administrator</small></div><span>•••</span></div>
   </aside>
   <main>
-    <header><button class="menu" (click)="sidebarOpen.set(true)">☰</button><div class="breadcrumb"><span>{{isSales?'Sales Workspace':'Master Data'}}</span><b>/</b><strong>{{isSales?'Lead Data Management':'Customer Master'}}</strong></div><div class="header-actions"><button class="round">⌕</button><button class="round notify">♢</button><div class="mini-avatar">RS</div></div></header>
+    <header><button class="menu" (click)="sidebarOpen.set(true)">☰</button><div class="breadcrumb"><span>{{isSales?'Sales Workspace':'Master Data'}}</span><b>/</b><strong>{{pageTitle}}</strong></div><div class="header-actions"><button class="round">⌕</button><button class="round notify">♢</button><div class="mini-avatar">RS</div></div></header>
     <router-outlet></router-outlet>
   </main>
 </div>

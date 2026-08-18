@@ -1,0 +1,69 @@
+<section class="sales-page find-page">
+  <div class="sales-head">
+    <div>
+      <p>SALES · FIND & VERIFY</p>
+      <h1>Find Company Records</h1>
+      <span>Verify a company across Sales and Customer Master APIs.</span>
+    </div>
+  </div>
+  <section class="find-hero">
+    <div class="find-copy">
+      <span>⌕</span>
+      <div>
+        <h2>Quick module verification</h2>
+        <p>The backend searches both clean prospects and existing customers.</p>
+      </div>
+    </div>
+    <div class="find-form">
+      <div>
+        <span>⌂</span
+        ><input
+          #findInput
+          [value]="query()"
+          (keyup.enter)="find(findInput.value)"
+          placeholder="Enter the company name..."
+        /><kbd>↵ Enter</kbd>
+      </div>
+      <button (click)="find(findInput.value)" [disabled]="loading()">
+        {{ loading() ? 'Searching…' : 'Find records' }} <span>→</span>
+      </button>
+    </div>
+    <div class="search-hints">
+      <span>Backend modules</span><b>Sales / Lead</b><b>Customer Master</b>
+    </div>
+  </section>
+  <div class="api-error find-error" *ngIf="error()">! {{ error() }}</div>
+  <section class="sales-card find-results" *ngIf="searched()">
+    <div class="result-head">
+      <div>
+        <p>API SEARCH RESULT</p>
+        <h2>
+          {{ results().length }} record{{ results().length === 1 ? '' : 's' }} found for “{{
+            query()
+          }}”
+        </h2>
+      </div>
+      <button (click)="clear(); findInput.value = ''">Clear search</button>
+    </div>
+    <div class="found-list" *ngIf="results().length">
+      <article *ngFor="let item of results()">
+        <div class="found-logo">{{ item.companyName.charAt(0) }}</div>
+        <div>
+          <strong>{{ item.companyName }}</strong
+          ><small>{{ item.module }} · {{ item.handledBy || 'No handler' }}</small>
+        </div>
+        <span class="record-state"><i></i>{{ item.status }}</span>
+      </article>
+    </div>
+    <div class="clean-empty" *ngIf="!results().length">
+      <span>✓</span><strong>No matching record found</strong
+      ><small>“{{ query() }}” does not exist in the current backend database.</small>
+    </div>
+  </section>
+  <section class="sales-card find-start" *ngIf="!searched()">
+    <div class="clean-empty">
+      <span>⌕</span><strong>Ready when you are</strong
+      ><small>Enter a company name above to query the backend.</small>
+    </div>
+  </section>
+</section>
