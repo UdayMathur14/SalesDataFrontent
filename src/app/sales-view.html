@@ -1,95 +1,127 @@
-<section class="sales-page">
-  <div class="sales-head">
+<section class="sales-page lead-page">
+  <header class="workspace-head">
     <div>
-      <p>SALES · RECORDS</p>
-      <h1>View Lead Data</h1>
-      <span>Live clean and blocked records from the Sales API.</span>
+      <span class="section-kicker">LIVE SALES DATABASE</span>
+      <h1>Lead Register</h1>
+      <p>Search, review and export clean or blocked lead records from one workspace.</p>
     </div>
-    <a class="primary-link" routerLink="/sales/import">＋ Import data</a>
+    <div class="workspace-actions">
+      <a class="action-button secondary" routerLink="/sales/import">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
+        </svg>
+        Import data
+      </a>
+      <button class="action-button primary" (click)="exportOpen.set(true)">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21V9M7 16l5 5 5-5M5 10V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5" />
+        </svg>
+        Export records
+      </button>
+    </div>
+  </header>
+
+  <div class="lead-overview">
+    <article class="overview-primary">
+      <span>All matching records</span>
+      <strong>{{ store.total() | number }}</strong>
+      <small>Live backend count</small>
+      <div class="overview-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </article>
+    <article>
+      <div class="overview-icon clean-icon">C</div>
+      <div>
+        <span>Clean leads</span><strong>{{ store.clean() | number }}</strong
+        ><small>Ready to use</small>
+      </div>
+      <b class="trend clean"
+        >{{ store.total() ? ((store.clean() / store.total()) * 100 | number: '1.0-0') : 0 }}%</b
+      >
+    </article>
+    <article>
+      <div class="overview-icon blocked-icon">B</div>
+      <div>
+        <span>Blocked leads</span><strong>{{ store.blocked() | number }}</strong
+        ><small>Locked or duplicate</small>
+      </div>
+      <b class="trend blocked"
+        >{{ store.total() ? ((store.blocked() / store.total()) * 100 | number: '1.0-0') : 0 }}%</b
+      >
+    </article>
+    <article>
+      <div class="overview-icon page-icon">R</div>
+      <div>
+        <span>Rows loaded</span><strong>{{ visibleLeads().length }}</strong
+        ><small>Page {{ page() }} of {{ totalPages() }}</small>
+      </div>
+    </article>
   </div>
-  <div class="data-stats">
-    <article>
-      <span class="metric violet">◎</span>
+
+  <section class="lead-panel">
+    <div class="lead-panel-head">
       <div>
-        <small>Total records</small><strong>{{ store.total() }}</strong>
-        <p>Backend record count</p>
+        <span class="section-kicker">RECORDS</span>
+        <h2>Sales lead data</h2>
       </div>
-    </article>
-    <article>
-      <span class="metric green">✓</span>
-      <div>
-        <small>Clean leads</small><strong>{{ store.clean() }}</strong>
-        <p>Ready for outreach</p>
-      </div>
-    </article>
-    <article>
-      <span class="metric red">×</span>
-      <div>
-        <small>Blocked leads</small><strong>{{ store.blocked() }}</strong>
-        <p>Duplicate or owned records</p>
-      </div>
-    </article>
-    <article>
-      <span class="metric blue">▦</span>
-      <div>
-        <small>Loaded on page</small><strong>{{ store.leads().length }}</strong>
-        <p>Maximum 50 per type</p>
-      </div>
-    </article>
-  </div>
-  <section class="sales-card records-card">
-    <div class="record-top">
-      <div>
-        <p>LEAD REGISTER</p>
-        <h2>Sales lead records</h2>
-      </div>
-      <div class="record-tabs">
+      <div class="status-tabs">
         <button [class.active]="tab() === 'All'" (click)="setTab('All')">
-          All <b>{{ store.total() }}</b></button
-        ><button [class.active]="tab() === 'Clean'" (click)="setTab('Clean')">
-          <i class="green-dot"></i>Clean <b>{{ store.clean() }}</b></button
-        ><button [class.active]="tab() === 'Blocked'" (click)="setTab('Blocked')">
-          <i class="red-dot"></i>Blocked <b>{{ store.blocked() }}</b>
+          All <b>{{ store.total() | number }}</b>
+        </button>
+        <button [class.active]="tab() === 'Clean'" (click)="setTab('Clean')">
+          <i class="clean-dot"></i>Clean <b>{{ store.clean() | number }}</b>
+        </button>
+        <button [class.active]="tab() === 'Blocked'" (click)="setTab('Blocked')">
+          <i class="blocked-dot"></i>Blocked <b>{{ store.blocked() | number }}</b>
         </button>
       </div>
     </div>
-    <div class="api-filters">
-      <div class="record-search">
-        <span>⌕</span
-        ><input
+
+    <div class="filter-deck">
+      <div class="filter-search">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-4-4" />
+        </svg>
+        <input
           #q
           [value]="query()"
           (input)="query.set(q.value)"
           (keyup.enter)="search()"
-          placeholder="Search company, contact, email or phone..."
+          placeholder="Company, contact, email or phone"
         />
       </div>
       <select #cat (change)="category.set(cat.value)">
         <option value="">All categories</option>
-        <option *ngFor="let x of options().categories">{{ x }}</option></select
-      ><select #evt (change)="event.set(evt.value)">
+        <option *ngFor="let x of options().categories">{{ x }}</option>
+      </select>
+      <select #evt (change)="event.set(evt.value)">
         <option value="">All events</option>
-        <option *ngFor="let x of options().events">{{ x }}</option></select
-      ><select #usr (change)="owner.set(usr.value)">
+        <option *ngFor="let x of options().events">{{ x }}</option>
+      </select>
+      <select #usr (change)="owner.set(usr.value)">
         <option value="">All users</option>
-        <option *ngFor="let x of options().users">{{ x }}</option></select
-      ><input
-        class="date-field"
+        <option *ngFor="let x of options().users">{{ x }}</option>
+      </select>
+      <input
+        class="filter-date"
         #from
         [value]="fromDate()"
         (input)="fromDate.set(from.value)"
         placeholder="From dd-MM-yyyy"
         maxlength="10"
-      /><input
-        class="date-field"
+      />
+      <input
+        class="filter-date"
         #to
         [value]="toDate()"
         (input)="toDate.set(to.value)"
         placeholder="To dd-MM-yyyy"
         maxlength="10"
-      /><button class="search-action" (click)="search()">Search</button
-      ><button
-        class="reset-action"
+      />
+      <button class="apply-filter" (click)="search()">Apply</button>
+      <button
+        class="clear-filter"
+        title="Reset filters"
         (click)="
           reset();
           q.value = '';
@@ -100,79 +132,182 @@
           to.value = ''
         "
       >
-        ↻
+        Reset
       </button>
     </div>
-    <div class="filter-message error" *ngIf="dateError()">{{ dateError() }}</div>
-    <div class="filter-message error" *ngIf="store.error()">{{ store.error() }}</div>
-    <div class="records-table">
-      <table>
+
+    <div class="inline-alert" *ngIf="dateError() || store.error()">
+      {{ dateError() || store.error() }}
+    </div>
+
+    <div class="lead-table-wrap" [class.loading]="store.loading()">
+      <table class="lead-table">
         <thead>
           <tr>
-            <th>Category</th>
-            <th>Company name</th>
-            <th>Contact person</th>
-            <th>Email</th>
-            <th>Contact number</th>
-            <th>{{ tab() === 'Blocked' ? 'Blocked on' : 'Created on' }}</th>
-            <th>{{ tab() === 'Blocked' ? 'Locked by' : 'Created by' }}</th>
+            <th>Company</th>
+            <th>Primary contact</th>
+            <th>Contact details</th>
+            <th>Location / event</th>
+            <th>Owner</th>
+            <th>Date</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let lead of store.leads()">
+          <tr *ngFor="let lead of visibleLeads()">
             <td>
-              <span class="type-tag">{{ lead.category || '—' }}</span>
-            </td>
-            <td>
-              <div class="lead-company">
+              <div class="company-cell">
                 <span>{{ (lead.companyName || '?').charAt(0) }}</span>
                 <div>
-                  <strong>{{ lead.companyName || '—' }}</strong
-                  ><small>{{ lead.city || lead.eventName || '—' }}</small>
+                  <strong>{{ lead.companyName || 'Unnamed company' }}</strong
+                  ><small
+                    ><b>{{ lead.category || 'Uncategorised' }}</b
+                    >{{ lead.customerCode ? ' · ' + lead.customerCode : '' }}</small
+                  >
                 </div>
               </div>
             </td>
             <td>
-              <strong>{{ lead.contactPerson || '—' }}</strong>
+              <strong class="cell-main">{{ lead.contactPerson || 'Not provided' }}</strong
+              ><small class="cell-muted">{{ lead.countryCode || 'No country code' }}</small>
             </td>
             <td>
-              <a>{{ lead.customerEmail || '—' }}</a>
+              <a class="email-link">{{ lead.customerEmail || 'No email' }}</a
+              ><small class="cell-muted">{{
+                lead.customerContactNumber1 || 'No phone number'
+              }}</small>
             </td>
-            <td>{{ lead.customerContactNumber1 || '—' }}</td>
-            <td>{{ lead.createdOn | date: 'dd-MM-yyyy' }}</td>
             <td>
-              <strong>{{
-                lead.recordType === 'Blocked' ? lead.blockedBy || '—' : lead.createdBy || '—'
+              <strong class="cell-main">{{
+                lead.city || lead.state || lead.country || 'Not provided'
               }}</strong
-              ><small *ngIf="lead.blockReason">{{ lead.blockReason }}</small>
+              ><small class="cell-muted">{{ lead.eventName || 'No event' }}</small>
             </td>
             <td>
-              <span class="record-state" [class.blocked]="lead.recordType === 'Blocked'"
+              <strong class="cell-main">{{
+                lead.recordType === 'Blocked'
+                  ? lead.blockedBy || 'Unassigned'
+                  : lead.createdBy || 'Unassigned'
+              }}</strong
+              ><small class="cell-muted">{{
+                lead.blockReason ||
+                  (lead.recordType === 'Blocked' ? 'Blocked record' : 'Created by')
+              }}</small>
+            </td>
+            <td>
+              <strong class="date-value">{{ lead.createdOn | date: 'dd-MM-yyyy' }}</strong>
+            </td>
+            <td>
+              <span class="state-pill" [class.blocked]="lead.recordType === 'Blocked'"
                 ><i></i>{{ lead.recordType }}</span
               >
             </td>
           </tr>
         </tbody>
       </table>
-      <div class="clean-empty table-empty" *ngIf="!store.loading() && !store.leads().length">
-        <span>▦</span><strong>No sales records found</strong
-        ><small>Import data or adjust your filters.</small
-        ><a routerLink="/sales/import">Go to Import Data →</a>
+
+      <div class="table-state" *ngIf="store.loading()">
+        <span class="loader-ring"></span><strong>Loading lead records</strong
+        ><small>Reading data from the Sales API…</small>
       </div>
-      <div class="clean-empty table-empty" *ngIf="store.loading()">
-        <span>◌</span><strong>Loading records…</strong
-        ><small>Fetching live data from the API.</small>
+      <div class="table-state" *ngIf="!store.loading() && !visibleLeads().length">
+        <div class="empty-grid">▦</div>
+        <strong>No matching leads</strong
+        ><small>Change the filters or import a new Excel file.</small
+        ><a routerLink="/sales/import">Open Import Center</a>
       </div>
     </div>
-    <div class="records-foot">
+
+    <footer class="lead-table-foot">
+      <div class="row-size">
+        <span>Rows per type</span
+        ><select #size [value]="pageSize()" (change)="changePageSize(size.value)">
+          <option>10</option>
+          <option>25</option>
+          <option>50</option>
+          <option>100</option>
+        </select>
+      </div>
       <span
-        >Showing <strong>{{ store.leads().length }}</strong> of
-        <strong>{{ store.total() }}</strong> records</span
+        >Page <strong>{{ page() }}</strong> of <strong>{{ totalPages() }}</strong> ·
+        {{ visibleLeads().length }} rows shown</span
       >
-      <div>
-        <button disabled>‹</button><button class="active">1</button><button disabled>›</button>
+      <div class="page-controls">
+        <button (click)="goToPage(page() - 1)" [disabled]="page() === 1">Previous</button
+        ><b>{{ page() }}</b
+        ><button (click)="goToPage(page() + 1)" [disabled]="page() === totalPages()">Next</button>
       </div>
-    </div>
+    </footer>
   </section>
 </section>
+
+<div class="export-scrim" *ngIf="exportOpen()" (click)="exportOpen.set(false)"></div>
+<aside class="export-panel open" *ngIf="exportOpen()">
+  <div class="export-panel-head">
+    <div>
+      <span class="section-kicker">CURRENT VIEW</span>
+      <h2>Export lead records</h2>
+    </div>
+    <button (click)="exportOpen.set(false)">×</button>
+  </div>
+  <div class="export-panel-body">
+    <div class="export-count">
+      <span>Records matching filters</span
+      ><strong>{{
+        tab() === 'Clean'
+          ? (store.clean() | number)
+          : tab() === 'Blocked'
+            ? (store.blocked() | number)
+            : (store.total() | number)
+      }}</strong
+      ><small>{{ tab() }} records · Dates exported as dd-MM-yyyy</small>
+    </div>
+    <div class="export-filter-summary">
+      <p>Export uses the filters currently applied to the Lead Register.</p>
+      <span *ngIf="query()"
+        >Search: <b>{{ query() }}</b></span
+      ><span *ngIf="category()"
+        >Category: <b>{{ category() }}</b></span
+      ><span *ngIf="owner()"
+        >Owner: <b>{{ owner() }}</b></span
+      ><span *ngIf="fromDate() || toDate()"
+        >Date: <b>{{ fromDate() || 'Any' }} – {{ toDate() || 'Any' }}</b></span
+      ><span *ngIf="!query() && !category() && !owner() && !fromDate() && !toDate()"
+        >No extra filters applied</span
+      >
+    </div>
+    <h3>Choose file format</h3>
+    <button
+      class="format-choice"
+      [class.selected]="exportFormat() === 'Xlsx'"
+      (click)="exportFormat.set('Xlsx')"
+    >
+      <b class="format-mark excel">X</b
+      ><span
+        ><strong>Excel workbook</strong
+        ><small>Formatted .xlsx with Clean and Blocked sheets</small></span
+      ><i>{{ exportFormat() === 'Xlsx' ? '✓' : '' }}</i>
+    </button>
+    <button
+      class="format-choice"
+      [class.selected]="exportFormat() === 'Csv'"
+      (click)="exportFormat.set('Csv')"
+    >
+      <b class="format-mark csv">C</b
+      ><span><strong>CSV file</strong><small>Lightweight file for data tools</small></span
+      ><i>{{ exportFormat() === 'Csv' ? '✓' : '' }}</i>
+    </button>
+  </div>
+  <div class="export-panel-actions">
+    <button class="cancel-export" (click)="exportOpen.set(false)">Cancel</button
+    ><button
+      class="confirm-export"
+      [disabled]="exporting()"
+      (click)="downloadExport(exportFormat())"
+    >
+      {{ exporting() ? 'Preparing file…' : 'Download ' + exportFormat().toUpperCase() }}
+    </button>
+  </div>
+</aside>
+
+<div class="sales-toast" *ngIf="message()"><span>✓</span>{{ message() }}</div>

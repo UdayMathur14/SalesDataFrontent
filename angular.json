@@ -29,7 +29,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss", "src/app/sales-pages.scss", "src/app/sales-api.scss"]
+            "styles": ["src/styles.scss", "src/app/sales-pages.scss"]
           },
           "configurations": {
             "production": {

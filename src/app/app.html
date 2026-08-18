@@ -1,19 +1,77 @@
-<div class="shell">
-  <aside class="sidebar" [class.open]="sidebarOpen()">
-    <div class="brand"><span class="brand-mark">N</span><span>Nexora</span></div>
-    <button class="close-mobile" (click)="sidebarOpen.set(false)">×</button>
-    <div class="workspace"><span>NV</span><div><strong>Nexora Ventures</strong><small>Business workspace</small></div><b>⌄</b></div>
-    <nav>
-      <p>Overview</p><a><span>⌂</span> Dashboard</a>
-      <p>Master Data</p><a routerLink="/customer-master" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>◫</span> Customer Master</a>
-      <p>Sales Workspace</p><a routerLink="/sales/import" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>↥</span> Import Data</a><a routerLink="/sales/view" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>▦</span> View Leads</a><a routerLink="/sales/export" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>⇩</span> Export Data</a><a routerLink="/sales/find" routerLinkActive="active" (click)="sidebarOpen.set(false)"><span>⌕</span> Find & Verify</a>
-      <p>Administration</p><a><span>♧</span> Team Members</a><a><span>⚙</span> Settings</a>
+<div class="app-shell">
+  <div class="mobile-scrim" [class.visible]="sidebarOpen()" (click)="sidebarOpen.set(false)"></div>
+
+  <aside class="app-nav" [class.open]="sidebarOpen()">
+    <div class="nav-identity">
+      <div class="identity-mark"><span></span><span></span><span></span></div>
+      <div><strong>Sales Console</strong><small>Data operations</small></div>
+      <button class="nav-close" aria-label="Close navigation" (click)="sidebarOpen.set(false)">
+        ×
+      </button>
+    </div>
+
+    <div class="environment-pill"><i></i><span>Backend connected</span><b>LIVE</b></div>
+
+    <nav class="primary-nav">
+      <div class="nav-group">
+        <p>Customer data</p>
+        <a routerLink="/customer-master" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+            />
+          </svg>
+          <span><strong>Customer Master</strong><small>Companies & contacts</small></span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <p>Sales data</p>
+        <a routerLink="/sales/view" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 19V9M10 19V5M16 19v-7M22 19V3M2 19h22" />
+          </svg>
+          <span><strong>Lead Register</strong><small>View, filter & export</small></span>
+        </a>
+        <a routerLink="/sales/import" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
+          </svg>
+          <span><strong>Import Center</strong><small>Excel & event contacts</small></span>
+        </a>
+        <a routerLink="/sales/find" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-4-4" />
+          </svg>
+          <span><strong>Company Lookup</strong><small>Verify across modules</small></span>
+        </a>
+      </div>
     </nav>
-    <div class="sidebar-help"><span>?</span><strong>Need some help?</strong><small>Check our documentation</small><button>Visit help center ↗</button></div>
-    <div class="profile"><div class="avatar">RS</div><div><strong>Rajnish Singh</strong><small>Administrator</small></div><span>•••</span></div>
+
+    <div class="nav-footer">
+      <div class="operator-avatar">RS</div>
+      <div><strong>Rajnish Singh</strong><small>Data administrator</small></div>
+      <span class="operator-status"></span>
+    </div>
   </aside>
-  <main>
-    <header><button class="menu" (click)="sidebarOpen.set(true)">☰</button><div class="breadcrumb"><span>{{isSales?'Sales Workspace':'Master Data'}}</span><b>/</b><strong>{{pageTitle}}</strong></div><div class="header-actions"><button class="round">⌕</button><button class="round notify">♢</button><div class="mini-avatar">RS</div></div></header>
+
+  <main class="app-main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-trigger" aria-label="Open navigation" (click)="sidebarOpen.set(true)">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </button>
+        <div class="page-context">
+          <small>{{ sectionTitle }}</small
+          ><strong>{{ pageTitle }}</strong>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="today-label">{{ today | date: 'dd MMM yyyy' }}</span>
+        <div class="top-avatar">RS</div>
+      </div>
+    </header>
     <router-outlet></router-outlet>
   </main>
 </div>

@@ -1,54 +1,45 @@
 <section class="content">
   <div class="page-head">
     <div>
-      <p class="eyebrow">CUSTOMER DIRECTORY</p>
+      <p class="eyebrow">CUSTOMER DATABASE</p>
       <h1>Customer Master</h1>
-      <p class="subhead">
-        Manage customer profiles, contacts and account information in one place.
-      </p>
+      <p class="subhead">Review and maintain every customer account from one reliable source.</p>
     </div>
     <div class="head-buttons">
-      <button class="btn secondary" (click)="downloadTemplate()"><span>⇩</span> Template</button
+      <button class="btn secondary" (click)="downloadTemplate()">Download template</button
       ><label class="btn secondary upload"
-        ><span>↥</span> Import Excel<input
-          type="file"
-          accept=".xlsx,.xls"
-          (change)="importExcel($event)" /></label
-      ><button class="btn primary" (click)="openCreate()"><span>＋</span> Add customer</button>
+        >Import Excel<input type="file" accept=".xlsx,.xls" (change)="importExcel($event)" /></label
+      ><button class="btn primary" (click)="openCreate()">Add customer</button>
     </div>
   </div>
   <div class="stats">
     <article>
-      <div class="stat-icon violet">♧</div>
+      <div class="stat-icon violet">C</div>
       <div>
         <span>Total customers</span><strong>{{ totalCount() }}</strong
         ><small>Backend record count</small>
       </div>
-      <i>⌁</i>
     </article>
     <article>
-      <div class="stat-icon green">✓</div>
+      <div class="stat-icon green">P</div>
       <div>
         <span>Loaded records</span><strong>{{ customers().length }}</strong
         ><small>Current API page</small>
       </div>
-      <i>⌁</i>
     </article>
     <article>
-      <div class="stat-icon blue">◇</div>
+      <div class="stat-icon blue">G</div>
       <div>
         <span>Countries on page</span><strong>{{ countryCount() }}</strong
         ><small>Distinct customer locations</small>
       </div>
-      <i>⌁</i>
     </article>
     <article>
-      <div class="stat-icon orange">＋</div>
+      <div class="stat-icon orange">✓</div>
       <div>
         <span>Complete profiles</span><strong>{{ completeCount() }}</strong
         ><small>Email, phone and country present</small>
       </div>
-      <i>⌁</i>
     </article>
   </div>
   <div class="api-banner" *ngIf="apiError()">{{ apiError() }}</div>
@@ -61,7 +52,7 @@
           [value]="search()"
           (input)="setSearch(searchInput.value)"
           placeholder="Search by company, contact, email..."
-        /><kbd>⌘ K</kbd>
+        />
       </div>
       <div class="filters">
         <select #categorySelect (change)="setCategory(categorySelect.value)">
@@ -83,13 +74,13 @@
             countrySelect.value = ''
           "
         >
-          ↻
+          ×
         </button>
       </div>
       <div class="toolbar-right">
         <button *ngIf="selected().length" class="delete" (click)="deleteSelected()">
           Delete {{ selected().length }}</button
-        ><button class="btn secondary export" (click)="exportCustomers()">⇩ Export</button>
+        ><button class="btn secondary export" (click)="exportCustomers()">Export page</button>
       </div>
     </div>
     <div class="table-wrap">
@@ -143,7 +134,7 @@
               ><small class="cell-sub">{{ c.state || c.country }}</small>
             </td>
             <td>
-              <span class="category">{{ c.category }}</span>
+              <span class="category">{{ c.category || '—' }}</span>
             </td>
             <td>
               <strong class="normal">{{ c.createdOn | date: 'dd-MM-yyyy' }}</strong>
@@ -152,7 +143,7 @@
           </tr>
           <tr *ngIf="!paged().length">
             <td colspan="8" class="empty">
-              <span>⌕</span><strong>No customers found</strong
+              <span>—</span><strong>No customers found</strong
               ><small>Try adjusting your search or filters.</small>
             </td>
           </tr>
@@ -186,7 +177,7 @@
 <aside class="drawer" [class.open]="drawerOpen()">
   <div class="drawer-head">
     <div>
-      <span class="form-icon">♧</span>
+      <span class="form-icon">C</span>
       <div>
         <p>{{ editingId() ? 'UPDATE RECORD' : 'NEW CUSTOMER' }}</p>
         <h2>{{ editingId() ? 'Edit customer' : 'Add a new customer' }}</h2>

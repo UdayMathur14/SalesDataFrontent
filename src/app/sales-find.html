@@ -1,22 +1,22 @@
 <section class="sales-page find-page">
   <div class="sales-head">
     <div>
-      <p>SALES · FIND & VERIFY</p>
-      <h1>Find Company Records</h1>
-      <span>Verify a company across Sales and Customer Master APIs.</span>
+      <p>DATA VERIFICATION</p>
+      <h1>Company Lookup</h1>
+      <span>Check a company across the Sales register and Customer Master.</span>
     </div>
   </div>
   <section class="find-hero">
     <div class="find-copy">
-      <span>⌕</span>
+      <span>C</span>
       <div>
-        <h2>Quick module verification</h2>
-        <p>The backend searches both clean prospects and existing customers.</p>
+        <h2>Search across every company record</h2>
+        <p>One search checks clean leads, blocked leads and existing customers.</p>
       </div>
     </div>
     <div class="find-form">
       <div>
-        <span>⌂</span
+        <span>C</span
         ><input
           #findInput
           [value]="query()"
@@ -29,14 +29,14 @@
       </button>
     </div>
     <div class="search-hints">
-      <span>Backend modules</span><b>Sales / Lead</b><b>Customer Master</b>
+      <span>Searching in</span><b>Lead Register</b><b>Customer Master</b>
     </div>
   </section>
   <div class="api-error find-error" *ngIf="error()">! {{ error() }}</div>
   <section class="sales-card find-results" *ngIf="searched()">
     <div class="result-head">
       <div>
-        <p>API SEARCH RESULT</p>
+        <p>SEARCH RESULT</p>
         <h2>
           {{ results().length }} record{{ results().length === 1 ? '' : 's' }} found for “{{
             query()
@@ -56,14 +56,14 @@
       </article>
     </div>
     <div class="clean-empty" *ngIf="!results().length">
-      <span>✓</span><strong>No matching record found</strong
-      ><small>“{{ query() }}” does not exist in the current backend database.</small>
+      <span>—</span><strong>No matching record found</strong
+      ><small>“{{ query() }}” does not exist in the current database.</small>
     </div>
   </section>
   <section class="sales-card find-start" *ngIf="!searched()">
     <div class="clean-empty">
-      <span>⌕</span><strong>Ready when you are</strong
-      ><small>Enter a company name above to query the backend.</small>
+      <span>C</span><strong>Ready when you are</strong
+      ><small>Enter a company name above to begin the lookup.</small>
     </div>
   </section>
 </section>

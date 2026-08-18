@@ -1,12 +1,12 @@
 <section class="sales-page">
   <div class="sales-head">
     <div>
-      <p>SALES · IMPORT</p>
-      <h1>Import Sales Data</h1>
-      <span>Upload directly to the backend classification engine.</span>
+      <p>DATA INTAKE</p>
+      <h1>Import Center</h1>
+      <span>Upload Excel records and let the system classify every row automatically.</span>
     </div>
     <button class="outline-action" (click)="downloadTemplate()">
-      ⇩ Download {{ mode() === 'Event' ? 'event' : 'sales' }} template
+      Download {{ mode() === 'Event' ? 'event' : 'sales' }} template
     </button>
   </div>
   <div class="workflow-steps">
@@ -15,7 +15,7 @@
     </div>
     <i></i>
     <div>
-      <b>2</b><span><strong>Upload to API</strong><small>Backend validates every row</small></span>
+      <b>2</b><span><strong>Upload & validate</strong><small>Every row is checked</small></span>
     </div>
     <i></i>
     <div>
@@ -27,8 +27,8 @@
       <div class="card-heading">
         <span class="card-icon">↥</span>
         <div>
-          <h2>New backend import</h2>
-          <p>Records are classified and stored by the Sales API.</p>
+          <h2>Start a new import</h2>
+          <p>Choose the source type, then select your prepared Excel file.</p>
         </div>
       </div>
       <div class="source-tabs">
@@ -36,13 +36,13 @@
           [class.active]="mode() === 'Standard'"
           (click)="mode.set('Standard'); file.set(null); result.set(null)"
         >
-          <span>▦</span><strong>Standard leads</strong
+          <span>S</span><strong>Standard leads</strong
           ><small>General sales prospect list</small></button
         ><button
           [class.active]="mode() === 'Event'"
           (click)="mode.set('Event'); file.set(null); result.set(null)"
         >
-          <span>◫</span><strong>Event contacts</strong><small>Contacts from one event</small>
+          <span>E</span><strong>Event contacts</strong><small>Contacts from one event</small>
         </button>
       </div>
       <label *ngIf="mode() === 'Event'"
@@ -55,9 +55,9 @@
         >Excel file <em>*</em>
         <div class="big-drop">
           <input type="file" accept=".xlsx,.xls" (change)="chooseFile($event)" /><span>{{
-            file() ? '✓' : '▤'
+            file() ? '✓' : 'XLS'
           }}</span
-          ><strong>{{ file()?.name || 'Drop your backend template here' }}</strong
+          ><strong>{{ file()?.name || 'Drop your Excel template here' }}</strong
           ><small>{{
             file() ? 'Ready to upload' : 'or click to browse · XLSX / XLS · Maximum 25 MB'
           }}</small
@@ -68,16 +68,16 @@
       <div class="import-actions">
         <button class="secondary-action" (click)="file.set(null); error.set('')">Clear</button
         ><button class="primary-action" (click)="upload()" [disabled]="uploading()">
-          {{ uploading() ? 'Uploading…' : 'Import records' }} <span>→</span>
+          {{ uploading() ? 'Uploading…' : 'Import records' }}
         </button>
       </div>
     </section>
     <aside class="sales-card guide-card">
       <div class="card-heading">
-        <span class="card-icon soft">✓</span>
+        <span class="card-icon soft">V</span>
         <div>
-          <h2>Backend validation</h2>
-          <p>What the API checks automatically.</p>
+          <h2>Automatic validation</h2>
+          <p>What the system checks before saving.</p>
         </div>
       </div>
       <ul>
@@ -108,22 +108,24 @@
         </li>
       </ul>
       <div class="secure-note">
-        <span>♢</span>
-        <p><strong>Connected to Sales API</strong>The file is submitted as multipart form data.</p>
+        <span>API</span>
+        <p>
+          <strong>Secure server upload</strong>Your selected file is sent directly to the Sales API.
+        </p>
       </div>
     </aside>
   </div>
   <section class="sales-card batches">
     <div class="card-heading">
-      <span class="card-icon soft">▤</span>
+      <span class="card-icon soft">R</span>
       <div>
         <h2>Latest import result</h2>
         <p>Response returned by the backend.</p>
       </div>
     </div>
     <div class="clean-empty" *ngIf="!result()">
-      <span>↥</span><strong>No import submitted</strong
-      ><small>Your backend import result will appear here.</small>
+      <span>—</span><strong>No import submitted</strong
+      ><small>The result summary will appear here after your first upload.</small>
     </div>
     <div class="result-summary" *ngIf="result()">
       <article>
