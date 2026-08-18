@@ -1,0 +1,277 @@
+<section class="content">
+  <div class="page-head">
+    <div>
+      <p class="eyebrow">CUSTOMER DIRECTORY</p>
+      <h1>Customer Master</h1>
+      <p class="subhead">
+        Manage customer profiles, contacts and account information in one place.
+      </p>
+    </div>
+    <div class="head-buttons">
+      <button class="btn secondary" (click)="downloadTemplate()"><span>⇩</span> Template</button
+      ><label class="btn secondary upload"
+        ><span>↥</span> Import Excel<input
+          type="file"
+          accept=".xlsx,.xls"
+          (change)="importExcel($event)" /></label
+      ><button class="btn primary" (click)="openCreate()"><span>＋</span> Add customer</button>
+    </div>
+  </div>
+  <div class="stats">
+    <article>
+      <div class="stat-icon violet">♧</div>
+      <div>
+        <span>Total customers</span><strong>{{ customers().length }}</strong
+        ><small><b>+8.4%</b> vs last month</small>
+      </div>
+      <i>⌁</i>
+    </article>
+    <article>
+      <div class="stat-icon green">✓</div>
+      <div>
+        <span>Active accounts</span><strong>{{ activeCount() }}</strong
+        ><small
+          >{{ (activeCount() / customers().length) * 100 | number: '1.0-0' }}% of total
+          customers</small
+        >
+      </div>
+      <i>⌁</i>
+    </article>
+    <article>
+      <div class="stat-icon blue">◇</div>
+      <div>
+        <span>Enterprise</span><strong>{{ enterpriseCount() }}</strong
+        ><small>High-value accounts</small>
+      </div>
+      <i>⌁</i>
+    </article>
+    <article>
+      <div class="stat-icon orange">＋</div>
+      <div>
+        <span>Added this month</span><strong>8</strong><small><b>+3</b> from last month</small>
+      </div>
+      <i>⌁</i>
+    </article>
+  </div>
+  <section class="table-card">
+    <div class="toolbar">
+      <div class="searchbox">
+        <span>⌕</span
+        ><input
+          #searchInput
+          [value]="search()"
+          (input)="setSearch(searchInput.value)"
+          placeholder="Search by company, contact, email..."
+        /><kbd>⌘ K</kbd>
+      </div>
+      <div class="filters">
+        <select #categorySelect (change)="setCategory(categorySelect.value)">
+          <option *ngFor="let item of categories">{{ item }}</option></select
+        ><select #statusSelect (change)="setStatus(statusSelect.value)">
+          <option>All status</option>
+          <option>Active</option>
+          <option>Inactive</option></select
+        ><button
+          class="icon-btn"
+          (click)="
+            setSearch('');
+            searchInput.value = '';
+            setCategory('All categories');
+            categorySelect.value = 'All categories';
+            setStatus('All status');
+            statusSelect.value = 'All status'
+          "
+        >
+          ↻
+        </button>
+      </div>
+      <div class="toolbar-right">
+        <button *ngIf="selected().length" class="delete" (click)="deleteSelected()">
+          Delete {{ selected().length }}</button
+        ><button class="btn secondary export" (click)="exportCustomers()">⇩ Export</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="check">
+              <input
+                type="checkbox"
+                [checked]="paged().length && paged().every((c) => selected().includes(c.id))"
+                (change)="togglePage()"
+              />
+            </th>
+            <th>Customer</th>
+            <th>Contact person</th>
+            <th>Contact</th>
+            <th>Location</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of paged()">
+            <td class="check">
+              <input
+                type="checkbox"
+                [checked]="selected().includes(c.id)"
+                (change)="toggleSelect(c.id)"
+              />
+            </td>
+            <td>
+              <div class="customer">
+                <div class="company-logo">{{ c.company.charAt(0) }}</div>
+                <div>
+                  <strong>{{ c.company }}</strong
+                  ><small>{{ c.code }} · Added {{ c.createdAt }}</small>
+                </div>
+              </div>
+            </td>
+            <td>
+              <strong class="normal">{{ c.contact }}</strong
+              ><small class="cell-sub">by {{ c.createdBy }}</small>
+            </td>
+            <td>
+              <a class="email">{{ c.email }}</a
+              ><small class="cell-sub">{{ c.countryCode }} {{ c.phone }}</small>
+            </td>
+            <td>
+              <strong class="normal">{{ c.city || '—' }}</strong
+              ><small class="cell-sub">{{ c.state || c.country }}</small>
+            </td>
+            <td>
+              <span class="category">{{ c.category }}</span>
+            </td>
+            <td>
+              <span class="status" [class.inactive]="c.status === 'Inactive'"
+                ><i></i>{{ c.status }}</span
+              >
+            </td>
+            <td><button class="more" (click)="openEdit(c)">•••</button></td>
+          </tr>
+          <tr *ngIf="!paged().length">
+            <td colspan="8" class="empty">
+              <span>⌕</span><strong>No customers found</strong
+              ><small>Try adjusting your search or filters.</small>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination">
+      <span
+        >Showing
+        <strong
+          >{{ filtered().length ? (page() - 1) * pageSize() + 1 : 0 }}–{{
+            Math.min(page() * pageSize(), filtered().length)
+          }}</strong
+        >
+        of <strong>{{ filtered().length }}</strong> customers</span
+      >
+      <div>
+        <button (click)="setPage(page() - 1)" [disabled]="page() === 1">‹</button
+        ><button
+          *ngFor="let p of [].constructor(totalPages()); let i = index"
+          [class.active]="page() === i + 1"
+          (click)="setPage(i + 1)"
+        >
+          {{ i + 1 }}</button
+        ><button (click)="setPage(page() + 1)" [disabled]="page() === totalPages()">›</button>
+      </div>
+    </div>
+  </section>
+</section>
+<div class="drawer-backdrop" *ngIf="drawerOpen()" (click)="drawerOpen.set(false)"></div>
+<aside class="drawer" [class.open]="drawerOpen()">
+  <div class="drawer-head">
+    <div>
+      <span class="form-icon">♧</span>
+      <div>
+        <p>{{ editingId() ? 'UPDATE RECORD' : 'NEW CUSTOMER' }}</p>
+        <h2>{{ editingId() ? 'Edit customer' : 'Add a new customer' }}</h2>
+      </div>
+    </div>
+    <button (click)="drawerOpen.set(false)">×</button>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-section">
+      <h3>Company details</h3>
+      <p>Basic account and classification information.</p>
+      <div class="form-grid">
+        <label class="wide"
+          >Company name <em>*</em
+          ><input formControlName="company" placeholder="e.g. Acme Technologies" /><small
+            *ngIf="form.controls.company.touched && form.controls.company.invalid"
+            >Company name is required</small
+          ></label
+        ><label>Customer code<input formControlName="code" placeholder="Auto-generated" /></label
+        ><label
+          >Category <em>*</em
+          ><select formControlName="category">
+            <option *ngFor="let item of categories.slice(1)">{{ item }}</option>
+          </select></label
+        ><label
+          >Account status<select formControlName="status">
+            <option>Active</option>
+            <option>Inactive</option>
+          </select></label
+        >
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Primary contact</h3>
+      <p>Who should we reach out to?</p>
+      <div class="form-grid">
+        <label class="wide"
+          >Contact person <em>*</em
+          ><input formControlName="contact" placeholder="Full name" /><small
+            *ngIf="form.controls.contact.touched && form.controls.contact.invalid"
+            >Contact person is required</small
+          ></label
+        ><label class="wide"
+          >Email address <em>*</em
+          ><input formControlName="email" type="email" placeholder="name@company.com" /><small
+            *ngIf="form.controls.email.touched && form.controls.email.invalid"
+            >Enter a valid email</small
+          ></label
+        ><label>Country code <em>*</em><input formControlName="countryCode" /></label
+        ><label
+          >Contact number <em>*</em
+          ><input formControlName="phone" placeholder="98765 43210" /><small
+            *ngIf="form.controls.phone.touched && form.controls.phone.invalid"
+            >Enter a valid phone number</small
+          ></label
+        >
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Location</h3>
+      <p>Customer's primary business location.</p>
+      <div class="form-grid">
+        <label class="wide"
+          >Country <em>*</em
+          ><select formControlName="country">
+            <option *ngFor="let item of countries">{{ item }}</option>
+          </select></label
+        ><label>State / Province<input formControlName="state" placeholder="e.g. Delhi" /></label
+        ><label>City<input formControlName="city" placeholder="e.g. New Delhi" /></label>
+      </div>
+    </div>
+    <div class="drawer-actions">
+      <button type="button" class="btn secondary" (click)="drawerOpen.set(false)">Cancel</button
+      ><button class="btn primary" type="submit">
+        {{ editingId() ? 'Save changes' : 'Create customer' }} <span>→</span>
+      </button>
+    </div>
+  </form>
+</aside>
+<div class="toast" *ngIf="toast()" [class.error]="toast()?.type === 'error'">
+  <span>{{ toast()?.type === 'success' ? '✓' : '!' }}</span>
+  <div>
+    <strong>{{ toast()?.type === 'success' ? 'Success' : 'Action needed' }}</strong
+    ><small>{{ toast()?.text }}</small>
+  </div>
+  <button (click)="toast.set(null)">×</button>
+</div>

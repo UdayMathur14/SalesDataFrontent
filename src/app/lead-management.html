@@ -1,0 +1,292 @@
+<section class="lead-page">
+  <div class="lead-head">
+    <div>
+      <p class="eyebrow">SALES TRANSACTIONS</p>
+      <h1>Lead Data Management</h1>
+      <p>Qualify, verify and manage every sales lead from one intelligent workspace.</p>
+    </div>
+    <div class="head-actions">
+      <button class="ghost" (click)="downloadTemplate()"><span>⇩</span> Template</button
+      ><label class="ghost"
+        ><span>↥</span> Import leads<input
+          type="file"
+          accept=".xlsx,.xls"
+          (change)="importLeads($event)" /></label
+      ><button class="primary" (click)="uploadOpen.set(true)">
+        <span>＋</span> Event contacts
+      </button>
+    </div>
+  </div>
+
+  <div class="lead-stats">
+    <article>
+      <div class="metric-icon purple">◎</div>
+      <div>
+        <small>Total leads</small><strong>{{ leads().length }}</strong
+        ><span><b>+12.6%</b> this month</span>
+      </div>
+      <div class="spark"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </article>
+    <article>
+      <div class="metric-icon green">✓</div>
+      <div>
+        <small>Clean & ready</small><strong>{{ clean() }}</strong
+        ><span>{{ clean() / leads().length | percent: '1.0-0' }} qualification rate</span>
+      </div>
+      <em>{{ clean() / leads().length | percent: '1.0-0' }}</em>
+    </article>
+    <article>
+      <div class="metric-icon amber">◷</div>
+      <div>
+        <small>Needs review</small><strong>{{ review() }}</strong
+        ><span>Waiting for verification</span>
+      </div>
+      <em class="amber-text">{{ review() }}</em>
+    </article>
+    <article>
+      <div class="metric-icon blue">⌁</div>
+      <div>
+        <small>Average lead score</small><strong>{{ avgScore() }}<sup>/100</sup></strong
+        ><span><b>+4.2</b> vs last period</span>
+      </div>
+      <div class="score-ring">{{ avgScore() }}</div>
+    </article>
+  </div>
+
+  <section class="verify-card">
+    <div class="verify-title">
+      <span>⌕</span>
+      <div>
+        <div class="title-line">
+          <h2>Quick Module Verification</h2>
+          <b>SMART CHECK</b>
+        </div>
+        <p>Check whether a company already exists across your connected sales modules.</p>
+      </div>
+    </div>
+    <div class="verify-form">
+      <div class="verify-input">
+        <span>⌂</span
+        ><input
+          #companyInput
+          (keyup.enter)="verifyCompany(companyInput.value)"
+          placeholder="Enter a company name, e.g. Arclight Systems"
+        /><kbd>↵ Enter</kbd>
+      </div>
+      <button (click)="verifyCompany(companyInput.value)" [disabled]="verifying()">
+        <span>{{ verifying() ? '◌' : '⌕' }}</span
+        >{{ verifying() ? 'Checking…' : 'Verify record' }}
+      </button>
+    </div>
+    <div class="verify-result" *ngIf="verifyResult()" [class.found]="verifyResult()?.found">
+      <span>{{ verifyResult()?.found ? '✓' : '＋' }}</span>
+      <div>
+        <strong>{{
+          verifyResult()?.found ? 'Company record found' : 'No existing record found'
+        }}</strong
+        ><small
+          >{{ verifyResult()?.company }}
+          {{
+            verifyResult()?.found
+              ? 'appears in ' + verifyResult()?.modules?.join(', ')
+              : 'is clear to add as a new lead.'
+          }}</small
+        >
+      </div>
+      <button *ngIf="!verifyResult()?.found">Create lead →</button>
+    </div>
+  </section>
+
+  <section class="register-card">
+    <div class="register-head">
+      <div>
+        <p class="eyebrow">LEAD REGISTER</p>
+        <h2>Sales lead records</h2>
+      </div>
+      <div class="view-tabs">
+        <button [class.active]="tab() === 'All'" (click)="setTab('All')">
+          All leads <b>{{ leads().length }}</b></button
+        ><button [class.active]="tab() === 'Clean'" (click)="setTab('Clean')">
+          <i class="clean-dot"></i> Clean <b>{{ clean() }}</b></button
+        ><button [class.active]="tab() === 'Review'" (click)="setTab('Review')">
+          <i class="review-dot"></i> Review <b>{{ review() }}</b></button
+        ><button [class.active]="tab() === 'Blocked'" (click)="setTab('Blocked')">
+          <i class="blocked-dot"></i> Blocked <b>{{ blocked() }}</b>
+        </button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="search">
+        <span>⌕</span
+        ><input
+          #q
+          [value]="query()"
+          (input)="query.set(q.value)"
+          placeholder="Search company, contact, email..."
+        />
+      </div>
+      <select #typeSelect (change)="type.set(typeSelect.value)">
+        <option *ngFor="let x of types">{{ x }}</option></select
+      ><select #catSelect (change)="category.set(catSelect.value)">
+        <option *ngFor="let x of categories">{{ x }}</option></select
+      ><select #ownerSelect (change)="owner.set(ownerSelect.value)">
+        <option *ngFor="let x of owners">{{ x }}</option></select
+      ><button
+        class="filter-reset"
+        (click)="
+          resetFilters();
+          q.value = '';
+          typeSelect.value = types[0];
+          catSelect.value = categories[0];
+          ownerSelect.value = owners[0]
+        "
+      >
+        ↻</button
+      ><button class="export" (click)="export()">⇩ Export</button>
+    </div>
+    <div class="active-filter">
+      <span>Event</span
+      ><select #eventSelect (change)="event.set(eventSelect.value)">
+        <option *ngFor="let x of events">{{ x }}</option></select
+      ><small>{{ filtered().length }} matching records</small>
+    </div>
+    <div class="lead-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Lead & company</th>
+            <th>Contact details</th>
+            <th>Type / category</th>
+            <th>Source</th>
+            <th>Owner</th>
+            <th>Lead score</th>
+            <th>Status</th>
+            <th>Next activity</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lead of filtered()">
+            <td>
+              <div class="company-cell">
+                <div>{{ lead.company.charAt(0) }}</div>
+                <span
+                  ><strong>{{ lead.company }}</strong
+                  ><small>{{ lead.city }} · {{ lead.created }}</small></span
+                >
+              </div>
+            </td>
+            <td>
+              <strong>{{ lead.person }}</strong
+              ><small>{{ lead.title }}</small
+              ><a>{{ lead.email }}</a>
+            </td>
+            <td>
+              <span class="type-pill">{{ lead.type }}</span
+              ><small>{{ lead.category }}</small>
+            </td>
+            <td>
+              <strong class="source">{{ lead.event }}</strong
+              ><small>Campaign source</small>
+            </td>
+            <td>
+              <div class="owner">
+                <span
+                  >{{ lead.owner.split(' ')[0].charAt(0)
+                  }}{{ lead.owner.split(' ')[1].charAt(0) }}</span
+                ><strong>{{ lead.owner }}</strong>
+              </div>
+            </td>
+            <td>
+              <div class="score">
+                <strong [class.hot]="lead.score >= 80" [class.low]="lead.score < 50">{{
+                  lead.score
+                }}</strong
+                ><span><i [style.width.%]="lead.score"></i></span>
+              </div>
+            </td>
+            <td>
+              <span
+                class="state"
+                [class.review]="lead.state === 'Review'"
+                [class.blocked]="lead.state === 'Blocked'"
+                ><i></i>{{ lead.state }}</span
+              >
+            </td>
+            <td>
+              <strong class="activity">{{ lead.activity }}</strong
+              ><small>Last updated recently</small>
+            </td>
+            <td><button class="more">•••</button></td>
+          </tr>
+          <tr *ngIf="!filtered().length">
+            <td colspan="9">
+              <div class="empty">
+                <span>⌕</span><strong>No matching leads</strong
+                ><small>Adjust the filters to see more records.</small>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="register-foot">
+      <span
+        >Showing <strong>{{ filtered().length }}</strong> of
+        <strong>{{ leads().length }}</strong> lead records</span
+      >
+      <div><button disabled>‹</button><button class="active">1</button><button>›</button></div>
+    </div>
+  </section>
+</section>
+
+<div class="upload-backdrop" *ngIf="uploadOpen()" (click)="uploadOpen.set(false)"></div>
+<aside class="upload-panel" [class.open]="uploadOpen()">
+  <div class="panel-head">
+    <div class="panel-icon">↥</div>
+    <div>
+      <p>SALES TRANSACTION 03</p>
+      <h2>Upload Event Contacts</h2>
+      <span>Add attendees directly to your lead pipeline.</span>
+    </div>
+    <button (click)="uploadOpen.set(false)">×</button>
+  </div>
+  <div class="upload-body">
+    <div class="drop-zone">
+      <span>▧</span><strong>Prepare your contact file</strong>
+      <p>Use our formatted Excel template for a clean and accurate upload.</p>
+      <button (click)="downloadTemplate()">⇩ Download Excel template</button>
+    </div>
+    <label
+      >Event name <em>*</em
+      ><input
+        #evName
+        (input)="eventName = evName.value"
+        placeholder="e.g. SaaS Connect 2026" /></label
+    ><label
+      >Event date <em>*</em><input #evDate type="date" (input)="eventDate = evDate.value" /></label
+    ><label
+      >Excel file <em>*</em>
+      <div class="file-field">
+        <span>▤</span>
+        <div>
+          <strong>{{ eventFile?.name || 'Choose your Excel file' }}</strong
+          ><small>{{ eventFile ? 'Ready to upload' : 'XLSX or XLS · Max 10 MB' }}</small>
+        </div>
+        <b>Browse</b
+        ><input type="file" accept=".xlsx,.xls" (change)="chooseEventFile($event)" /></div
+    ></label>
+    <div class="upload-note">
+      <span>i</span>
+      <p>
+        <strong>What happens next?</strong>Your contacts will be added with “Review” status so your
+        team can verify them before outreach.
+      </p>
+    </div>
+  </div>
+  <div class="panel-foot">
+    <button class="cancel" (click)="uploadOpen.set(false)">Cancel</button
+    ><button class="upload-btn" (click)="uploadEvent()">Upload contacts <span>→</span></button>
+  </div>
+</aside>
+<div class="lead-toast" *ngIf="toast()"><span>✓</span>{{ toast() }}</div>
