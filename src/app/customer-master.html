@@ -17,7 +17,7 @@
       <div class="stat-icon violet">C</div>
       <div>
         <span>Total customers</span><strong>{{ totalCount() }}</strong
-        ><small>Backend record count</small>
+        ><small>All customer records</small>
       </div>
     </article>
     <article>
@@ -94,7 +94,7 @@
                 (change)="togglePage()"
               />
             </th>
-            <th>Customer</th>
+            <th>Customer Name</th>
             <th>Contact person</th>
             <th>Contact</th>
             <th>Location</th>
@@ -116,8 +116,7 @@
               <div class="customer">
                 <div class="company-logo">{{ c.company.charAt(0) }}</div>
                 <div>
-                  <strong>{{ c.company }}</strong
-                  ><small>{{ c.code || 'No code' }}</small>
+                  <strong>{{ c.company }}</strong>  
                 </div>
               </div>
             </td>

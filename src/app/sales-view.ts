@@ -51,7 +51,11 @@ export class SalesView implements OnInit {
     const from = this.parse(this.fromDate()),
       to = this.parse(this.toDate());
     if ((this.fromDate() && !from) || (this.toDate() && !to)) {
-      this.dateError.set('Use dd-MM-yyyy date format');
+      this.dateError.set('Select a valid date');
+      return;
+    }
+    if (from && to && from > to) {
+      this.dateError.set('From date cannot be after To date');
       return;
     }
     this.dateError.set('');
@@ -104,7 +108,11 @@ export class SalesView implements OnInit {
     const from = this.parse(this.fromDate()),
       to = this.parse(this.toDate());
     if ((this.fromDate() && !from) || (this.toDate() && !to)) {
-      this.dateError.set('Use dd-MM-yyyy date format');
+      this.dateError.set('Select a valid date');
+      return;
+    }
+    if (from && to && from > to) {
+      this.dateError.set('From date cannot be after To date');
       return;
     }
     this.exporting.set(true);
@@ -141,16 +149,20 @@ export class SalesView implements OnInit {
       this.exporting.set(false);
     }
   }
+  displayDate(value: string) {
+    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+    return match ? `${match[3]}-${match[2]}-${match[1]}` : '';
+  }
   private parse(value: string) {
     if (!value) return undefined;
-    const m = /^(\d{2})-(\d{2})-(\d{4})$/.exec(value.trim());
-    if (!m) return undefined;
-    const [, d, mo, y] = m,
-      date = new Date(Number(y), Number(mo) - 1, Number(d));
-    return date.getFullYear() === Number(y) &&
-      date.getMonth() === Number(mo) - 1 &&
-      date.getDate() === Number(d)
-      ? `${y}-${mo}-${d}`
+    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value.trim());
+    if (!match) return undefined;
+    const [, year, month, day] = match,
+      date = new Date(Number(year), Number(month) - 1, Number(day));
+    return date.getFullYear() === Number(year) &&
+      date.getMonth() === Number(month) - 1 &&
+      date.getDate() === Number(day)
+      ? value.trim()
       : undefined;
   }
 }

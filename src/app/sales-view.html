@@ -1,7 +1,7 @@
 <section class="sales-page lead-page">
   <header class="workspace-head">
     <div>
-      <span class="section-kicker">LIVE SALES DATABASE</span>
+      <span class="section-kicker">SALES INTELLIGENCE</span>
       <h1>Lead Register</h1>
       <p>Search, review and export clean or blocked lead records from one workspace.</p>
     </div>
@@ -25,7 +25,7 @@
     <article class="overview-primary">
       <span>All matching records</span>
       <strong>{{ store.total() | number }}</strong>
-      <small>Live backend count</small>
+      <small>Across the current view</small>
       <div class="overview-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     </article>
     <article>
@@ -102,22 +102,32 @@
         <option value="">All users</option>
         <option *ngFor="let x of options().users">{{ x }}</option>
       </select>
-      <input
-        class="filter-date"
-        #from
-        [value]="fromDate()"
-        (input)="fromDate.set(from.value)"
-        placeholder="From dd-MM-yyyy"
-        maxlength="10"
-      />
-      <input
-        class="filter-date"
-        #to
-        [value]="toDate()"
-        (input)="toDate.set(to.value)"
-        placeholder="To dd-MM-yyyy"
-        maxlength="10"
-      />
+      <label class="date-picker">
+        <span>From date</span>
+        <input
+          class="filter-date"
+          type="date"
+          lang="en-GB"
+          #from
+          [value]="fromDate()"
+          [attr.max]="toDate() || null"
+          (input)="fromDate.set(from.value)"
+          title="Select start date"
+        />
+      </label>
+      <label class="date-picker">
+        <span>To date</span>
+        <input
+          class="filter-date"
+          type="date"
+          lang="en-GB"
+          #to
+          [value]="toDate()"
+          [attr.min]="fromDate() || null"
+          (input)="toDate.set(to.value)"
+          title="Select end date"
+        />
+      </label>
       <button class="apply-filter" (click)="search()">Apply</button>
       <button
         class="clear-filter"
@@ -208,7 +218,7 @@
 
       <div class="table-state" *ngIf="store.loading()">
         <span class="loader-ring"></span><strong>Loading lead records</strong
-        ><small>Reading data from the Sales API…</small>
+        ><small>Preparing your lead view…</small>
       </div>
       <div class="table-state" *ngIf="!store.loading() && !visibleLeads().length">
         <div class="empty-grid">▦</div>
@@ -271,7 +281,7 @@
       ><span *ngIf="owner()"
         >Owner: <b>{{ owner() }}</b></span
       ><span *ngIf="fromDate() || toDate()"
-        >Date: <b>{{ fromDate() || 'Any' }} – {{ toDate() || 'Any' }}</b></span
+        >Date: <b>{{ displayDate(fromDate()) || 'Any' }} – {{ displayDate(toDate()) || 'Any' }}</b></span
       ><span *ngIf="!query() && !category() && !owner() && !fromDate() && !toDate()"
         >No extra filters applied</span
       >

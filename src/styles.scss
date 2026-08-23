@@ -8,9 +8,9 @@ body {
 }
 body {
   overflow-x: hidden;
-  background: #f3f6f4;
-  color: #17211f;
-  font-family: Inter, Aptos, 'Segoe UI', Arial, sans-serif;
+  background: #f7f6fc;
+  color: #202037;
+  font-family: Inter, Aptos, 'Segoe UI Variable', 'Segoe UI', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 button,
@@ -25,6 +25,27 @@ button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 2px solid #0c7c68;
+  outline: 2px solid #7557f5;
   outline-offset: 2px;
+}
+
+::selection {
+  color: #fff;
+  background: #7557f5;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: #c9c2dc;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
 }
