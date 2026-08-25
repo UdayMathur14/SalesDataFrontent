@@ -1111,6 +1111,55 @@ input[type='checkbox'] {
   }
 }
 
+.logout-button {
+  height: 38px;
+  padding: 0 13px;
+  border: 1px solid #eadde7;
+  border-radius: 12px;
+  color: #a13f61;
+  background: linear-gradient(145deg, #fff, #fff4f7);
+  box-shadow: 0 7px 18px rgba(130, 46, 76, 0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 780;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.logout-button svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.logout-button:hover {
+  border-color: #f1bdca;
+  color: #bd365e;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 23px rgba(152, 47, 82, 0.14);
+}
+
+@media (max-width: 520px) {
+  .logout-button {
+    width: 38px;
+    padding: 0;
+  }
+
+  .logout-button span {
+    display: none;
+  }
+}
+
 @media (max-width: 460px) {
   .stats {
     grid-template-columns: 1fr;

@@ -53,11 +53,6 @@
       </div>
     </nav>
 
-    <div class="nav-footer" *ngIf="session.user() as user">
-      <div class="operator-avatar">{{ session.initials(user) }}</div>
-      <div><strong>{{ user.displayName }}</strong><small>{{ user.role || 'Signed in user' }}</small></div>
-      <span class="operator-status"></span>
-    </div>
   </aside>
 
   <main class="app-main">
@@ -79,7 +74,12 @@
       <div class="topbar-right">
         <span class="topbar-chip">Data workspace</span>
         <span class="today-label">{{ today | date: 'dd MMM yyyy' }}</span>
-        <div class="top-avatar" *ngIf="session.user() as user">{{ session.initials(user) }}</div>
+        <button class="logout-button" type="button" (click)="logout()" title="Logout">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10 17l5-5-5-5M15 12H3M14 3h4a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-4" />
+          </svg>
+          <span>Logout</span>
+        </button>
       </div>
     </header>
     <router-outlet></router-outlet>

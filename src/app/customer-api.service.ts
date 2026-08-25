@@ -34,7 +34,6 @@ export type CustomerRequest = {
   state: string | null;
   city: string | null;
   category: string;
-  actor: string;
 };
 export type PagedResult<T> = {
   items: T[];
@@ -84,7 +83,6 @@ export class CustomerApiService {
   import(file: File) {
     const form = new FormData();
     form.append('file', file);
-    form.append('actor', environment.actor);
     return this.http.post<CustomerImportResult>(`${this.base}/import`, form);
   }
   template() {

@@ -265,8 +265,7 @@ export class CustomerMaster implements OnInit {
       country: v.country!,
       state: v.state || null,
       city: v.city || null,
-      category: v.category!,
-      actor: environment.actor,
+      category: v.category!
     };
   }
   private map(x: CustomerResponse): CustomerView {

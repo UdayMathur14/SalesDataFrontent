@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { SessionUserService } from './session-user.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,6 @@ import { SessionUserService } from './session-user.service';
 export class App {
   readonly sidebarOpen = signal(false);
   readonly today = new Date();
-  readonly session = inject(SessionUserService);
   constructor(public router: Router) {}
   get isSales() {
     return this.router.url.startsWith('/sales');
@@ -26,5 +24,8 @@ export class App {
     if (this.router.url.startsWith('/sales/view')) return 'Lead Register';
     if (this.router.url.startsWith('/sales/find')) return 'Company Lookup';
     return 'Customer Master';
+  }
+  logout() {
+    window.location.replace('http://192.168.29.101:90');
   }
 }

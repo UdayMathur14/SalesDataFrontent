@@ -108,7 +108,6 @@ export class SalesDataService {
   import(file: File, mode: 'Standard' | 'Event', eventName?: string) {
     const form = new FormData();
     form.append('file', file);
-    form.append('actor', environment.actor);
     form.append('mode', mode);
     if (eventName) form.append('eventName', eventName);
     return this.http.post<SalesImportResult>(`${this.base}/import`, form);
