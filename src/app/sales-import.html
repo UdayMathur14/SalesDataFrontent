@@ -9,19 +9,6 @@
       Download {{ mode() === 'Event' ? 'event' : 'sales' }} template
     </button>
   </div>
-  <div class="workflow-steps">
-    <div class="active">
-      <b>1</b><span><strong>Choose source</strong><small>Select import mode</small></span>
-    </div>
-    <i></i>
-    <div>
-      <b>2</b><span><strong>Upload & validate</strong><small>Every row is checked</small></span>
-    </div>
-    <i></i>
-    <div>
-      <b>3</b><span><strong>Review result</strong><small>Clean, blocked and invalid</small></span>
-    </div>
-  </div>
   <div class="import-layout">
     <section class="sales-card import-card">
       <div class="card-heading">
@@ -72,50 +59,8 @@
         </button>
       </div>
     </section>
-    <aside class="sales-card guide-card">
-      <div class="card-heading">
-        <span class="card-icon soft">V</span>
-        <div>
-          <h2>Automatic validation</h2>
-          <p>What the system checks before saving.</p>
-        </div>
-      </div>
-      <ul>
-        <li>
-          <span>1</span>
-          <div>
-            <strong>Required values</strong><small>Company, category and contact details.</small>
-          </div>
-        </li>
-        <li>
-          <span>2</span>
-          <div>
-            <strong>Customer duplicates</strong><small>Matches against Customer Master.</small>
-          </div>
-        </li>
-        <li>
-          <span>3</span>
-          <div>
-            <strong>Cross-user ownership</strong
-            ><small>Email, domain, phone and company rules.</small>
-          </div>
-        </li>
-        <li>
-          <span>4</span>
-          <div>
-            <strong>Clean or blocked</strong><small>Records are saved to the correct table.</small>
-          </div>
-        </li>
-      </ul>
-      <div class="secure-note">
-        <span>XLS</span>
-        <p>
-          <strong>Secure file processing</strong>Your selected file is validated before any records are created.
-        </p>
-      </div>
-    </aside>
   </div>
-  <section class="sales-card batches">
+  <section class="sales-card batches" *ngIf="result()">
     <div class="card-heading">
       <span class="card-icon soft">R</span>
       <div>
@@ -123,11 +68,7 @@
         <p>Summary from your latest upload.</p>
       </div>
     </div>
-    <div class="clean-empty" *ngIf="!result()">
-      <span>—</span><strong>No import submitted</strong
-      ><small>The result summary will appear here after your first upload.</small>
-    </div>
-    <div class="result-summary" *ngIf="result()">
+    <div class="result-summary">
       <article>
         <span class="metric green">✓</span>
         <div>
