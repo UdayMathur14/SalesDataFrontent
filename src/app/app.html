@@ -4,16 +4,10 @@
   <aside class="app-nav" [class.open]="sidebarOpen()">
     <div class="nav-identity">
       <div class="identity-mark"><span></span><span></span><span></span></div>
-      <div><strong>Sales Console</strong><small>Data operations</small></div>
+      <div><strong>Lead Data Module</strong><small>Upload Data and view Blocked/Clean Leads</small></div>
       <button class="nav-close" aria-label="Close navigation" (click)="closeSidebar()">
         ×
       </button>
-    </div>
-
-    <div class="nav-manifest">
-      <span>Workspace</span>
-      <strong>Sales operations</strong>
-      <small>Customers · Leads · Imports</small>
     </div>
 
     <nav class="primary-nav">
@@ -30,7 +24,7 @@
       </div>
 
       <div class="nav-group">
-        <p>Sales data</p>
+        <p>Lead Data Module</p>
         <a routerLink="/sales/view" routerLinkActive="active" (click)="closeSidebar()">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 19V9M10 19V5M16 19v-7M22 19V3M2 19h22" />
@@ -41,7 +35,7 @@
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
           </svg>
-          <span><strong>Import Center</strong><small>Excel & event contacts</small></span>
+          <span><strong>Upload Leads</strong><small>Excel & event contacts</small></span>
         </a>
         <a routerLink="/sales/find" routerLinkActive="active" (click)="closeSidebar()">
           <svg viewBox="0 0 24 24" aria-hidden="true">

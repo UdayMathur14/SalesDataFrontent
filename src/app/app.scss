@@ -1,6 +1,6 @@
 app-root {
-  --nav-expanded-width: 272px;
-  --nav-rail-width: 24px;
+  --nav-expanded-width: 248px;
+  --nav-rail-width: 18px;
   --nav: #172234;
   --nav-soft: #24334a;
   --ink: #1d2735;
@@ -1810,9 +1810,9 @@ input[type='checkbox'] {
 
 /* Compact utility bar: page titles live inside each page, so only keep logout here. */
 .topbar {
-  height: 60px;
-  padding-right: 28px;
-  padding-left: 28px;
+  height: 52px;
+  padding-right: 22px;
+  padding-left: 22px;
 }
 
 .topbar-right {
@@ -1820,14 +1820,15 @@ input[type='checkbox'] {
 }
 
 .logout-button {
-  height: 40px;
-  padding: 0 15px;
-  font-size: 12px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 11px;
 }
 
 .logout-button svg {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
 }
 
 .topbar {
@@ -1847,6 +1848,28 @@ input[type='checkbox'] {
 .customer strong,
 .normal {
   color: #1f2b3a;
+}
+
+.content {
+  padding: 26px 28px 44px;
+}
+
+.page-head {
+  margin-bottom: 18px;
+}
+
+.page-head h1 {
+  font-size: 21px;
+  letter-spacing: -0.8px;
+}
+
+.subhead {
+  margin-top: 6px;
+  font-size: 11px;
+}
+
+.head-buttons {
+  gap: 6px;
 }
 
 .eyebrow {
@@ -1876,8 +1899,8 @@ input[type='checkbox'] {
 }
 
 .stats article {
-  min-height: 88px;
-  padding: 13px 16px;
+  min-height: 68px;
+  padding: 9px 12px;
   border-color: #dfe5eb;
   border-radius: 14px;
   box-shadow: 0 5px 16px rgba(31, 48, 68, 0.055);
@@ -1899,9 +1922,9 @@ input[type='checkbox'] {
 }
 
 .stat-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 11px;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
   color: #3568a9;
   background: #edf3fa;
 }
@@ -1913,18 +1936,18 @@ input[type='checkbox'] {
 
 .stats span {
   color: #687588;
-  font-size: 11px;
+  font-size: 9px;
 }
 
 .stats strong {
-  margin: 3px 0;
+  margin: 2px 0;
   color: #1d2938;
-  font-size: 28px;
+  font-size: 22px;
 }
 
 .stats small {
   color: #7d8998;
-  font-size: 10px;
+  font-size: 8px;
 }
 
 .table-card {
@@ -1934,8 +1957,8 @@ input[type='checkbox'] {
 }
 
 .toolbar {
-  min-height: 64px;
-  padding: 10px 14px;
+  min-height: 54px;
+  padding: 9px 11px;
   border-color: #e3e8ed;
   background: #fff;
 }
@@ -1952,7 +1975,19 @@ input[type='checkbox'] {
 .btn,
 .pagination,
 .pagination button {
-  font-size: 12px;
+  font-size: 11px;
+}
+
+.searchbox,
+.filters select,
+.icon-btn,
+.btn {
+  height: 30px;
+}
+
+.btn {
+  padding: 0 12px;
+  border-radius: 9px;
 }
 
 .searchbox:focus-within {
@@ -1961,18 +1996,18 @@ input[type='checkbox'] {
 }
 
 .table-card th {
-  height: 43px;
+  height: 38px;
   color: #536174;
   background: #f1f4f7;
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.7px;
 }
 
 .table-card td {
-  height: 72px;
+  height: 58px;
   border-color: #e7ebef;
   color: #344254;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .table-card tbody tr:hover {
@@ -1980,8 +2015,8 @@ input[type='checkbox'] {
 }
 
 .company-logo {
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   border-color: #d9e5f0;
   color: #3568a9;
   background: #edf3fa;
@@ -1989,13 +2024,13 @@ input[type='checkbox'] {
 
 .customer strong,
 .normal {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .customer small,
 .cell-sub {
   color: #768396;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .email {
@@ -2004,14 +2039,14 @@ input[type='checkbox'] {
 }
 
 .category {
-  padding: 5px 9px;
+  padding: 4px 7px;
   color: #536174;
   background: #eef1f5;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .pagination {
-  min-height: 56px;
+  min-height: 48px;
   border-color: #e3e8ed;
   color: #627083;
 }
@@ -2060,12 +2095,13 @@ input[type='checkbox'] {
 
 .nav-identity strong {
   color: #253447;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .nav-identity small {
   color: #68798c;
-  font-size: 11px;
+  font-size: 9px;
+  line-height: 1.35;
 }
 
 .identity-mark {
@@ -2127,13 +2163,13 @@ input[type='checkbox'] {
 }
 
 .nav-group a strong {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .nav-group a small,
 .nav-group a.active small {
   color: #718196;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .nav-close {
@@ -2149,8 +2185,8 @@ input[type='checkbox'] {
 
 .stats article,
 .stats article:first-child {
-  min-height: 78px;
-  padding: 10px 14px;
+  min-height: 54px;
+  padding: 6px 9px;
   color: #273546;
   border-color: #dce5ed;
   background: #fff;
@@ -2173,22 +2209,22 @@ input[type='checkbox'] {
 
 .stats article:first-child .stat-icon,
 .stat-icon {
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 24px;
   color: #426b93;
   background: #e5eff7;
 }
 
 .stats strong {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .stats span {
-  font-size: 10px;
+  font-size: 8px;
 }
 
 .stats small {
-  font-size: 9px;
+  font-size: 7px;
 }
 
 .email {
@@ -2219,18 +2255,57 @@ input[type='checkbox'] {
 
 .app-nav {
   width: var(--nav-expanded-width);
+  padding: 18px 13px 14px;
   border-color: #c2d2df;
   background: linear-gradient(180deg, #d5e4ee 0%, #c6d8e5 100%);
   box-shadow: 16px 0 38px rgba(38, 59, 79, 0.16);
 }
 
 .nav-identity {
+  height: auto;
+  min-height: 62px;
+  padding: 0 5px 13px;
+  align-items: flex-start;
   border-bottom: 1px solid rgba(104, 133, 158, 0.18);
 }
 
+.nav-identity > div:nth-child(2) {
+  padding-top: 2px;
+}
+
 .identity-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
   border-color: #9eb8ce;
   background: linear-gradient(145deg, #d4e5f1, #bcd2e3);
+}
+
+.primary-nav {
+  padding-top: 17px;
+}
+
+.nav-group {
+  margin-bottom: 18px;
+}
+
+.nav-group p {
+  margin: 0 9px 7px;
+  font-size: 9px;
+  letter-spacing: 1.25px;
+}
+
+.nav-group a {
+  min-height: 48px;
+  margin: 3px 0;
+  padding: 8px 9px;
+  border-radius: 11px;
+  gap: 10px;
+}
+
+.nav-group svg {
+  width: 18px;
+  height: 18px;
 }
 
 .nav-manifest {
@@ -2329,6 +2404,10 @@ input[type='checkbox'] {
 }
 
 @media (min-width: 1101px) {
+  .app-nav {
+    border-radius: 0 18px 18px 0;
+  }
+
   .app-nav::before {
     content: none;
     display: none;

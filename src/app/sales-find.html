@@ -1,14 +1,13 @@
 <section class="sales-page find-page">
   <div class="sales-head">
     <div>
-      <p>DATA VERIFICATION</p>
+      <p></p>
       <h1>Company Lookup</h1>
-      <span>Check a company across the Sales register and Customer Master.</span>
+      <span>Check a company across the Lead Module and Customer Master.</span>
     </div>
   </div>
   <section class="find-hero">
     <div class="find-copy">
-      <span>C</span>
       <div>
         <h2>Search across every company record</h2>
         <p>One search checks clean leads, blocked leads and existing customers.</p>
@@ -16,8 +15,7 @@
     </div>
     <div class="find-form">
       <div>
-        <span>C</span
-        ><input
+        <input
           #findInput
           [value]="query()"
           (keyup.enter)="find(findInput.value)"
@@ -62,7 +60,7 @@
   </section>
   <section class="sales-card find-start" *ngIf="!searched()">
     <div class="clean-empty">
-      <span>C</span><strong>Ready when you are</strong
+      <strong>Ready when you are</strong
       ><small>Enter a company name above to begin the lookup.</small>
     </div>
   </section>

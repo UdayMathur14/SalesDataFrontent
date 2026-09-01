@@ -6,7 +6,7 @@ import { SalesFind } from './sales-find';
 
 export const routes: Routes = [
   { path: 'customer-master', component: CustomerMaster, title: 'Customer Master' },
-  { path: 'sales/import', component: SalesImport, title: 'Import Center' },
+  { path: 'sales/import', component: SalesImport, title: 'Upload Leads' },
   { path: 'sales/view', component: SalesView, title: 'Lead Register' },
   { path: 'sales/export', pathMatch: 'full', redirectTo: 'sales/view' },
   { path: 'sales/find', component: SalesFind, title: 'Company Lookup' },

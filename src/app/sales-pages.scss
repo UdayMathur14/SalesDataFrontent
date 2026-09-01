@@ -785,7 +785,7 @@
   opacity: 0.55;
 }
 
-/* Import center */
+/* Upload Leads */
 .workflow-steps {
   min-height: 76px;
   margin-bottom: 16px;
@@ -2949,7 +2949,7 @@
   background: #edf4f8;
 }
 
-/* Import Center focus mode: one large task area with readable controls. */
+/* Upload Leads focus mode: one large task area with readable controls. */
 .sales-head h1 {
   font-size: 40px;
 }
@@ -3116,4 +3116,389 @@
 
 .lead-table .email-link {
   font-size: 13px;
+}
+
+/* Final compact density for data-heavy screens. */
+.sales-page {
+  padding: 20px 26px 40px;
+}
+
+.workspace-head,
+.sales-head {
+  margin-bottom: 13px;
+  align-items: center;
+  gap: 16px;
+}
+
+.workspace-head h1,
+.sales-head h1 {
+  font-size: 21px;
+  line-height: 1.12;
+  letter-spacing: -0.75px;
+}
+
+.workspace-head p,
+.sales-head > div > span {
+  margin-top: 5px;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.section-kicker,
+.sales-head > div > p {
+  margin-bottom: 6px;
+  font-size: 8px;
+}
+
+.workspace-actions {
+  gap: 6px;
+}
+
+.action-button,
+.outline-action,
+.primary-link {
+  min-height: 30px;
+  padding: 0 9px;
+  border-radius: 7px;
+  gap: 5px;
+  font-size: 9px;
+}
+
+.action-button svg {
+  width: 13px;
+  height: 13px;
+}
+
+.lead-overview {
+  gap: 7px;
+  margin-bottom: 9px;
+}
+
+.lead-overview article,
+.lead-overview .overview-primary {
+  min-height: 54px;
+  padding: 6px 9px;
+  border-radius: 10px;
+  gap: 7px;
+}
+
+.lead-overview article span {
+  font-size: 8px;
+}
+
+.lead-overview article strong,
+.overview-primary > strong {
+  font-size: 18px !important;
+}
+
+.lead-overview article small {
+  margin-top: 2px;
+  font-size: 7px;
+}
+
+.overview-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  font-size: 9px;
+}
+
+.overview-bars {
+  right: 9px;
+  bottom: 9px;
+  height: 24px;
+  gap: 3px;
+}
+
+.overview-bars i {
+  width: 5px;
+}
+
+.trend {
+  top: 7px;
+  right: 7px;
+  padding: 2px 5px;
+  font-size: 7px;
+}
+
+.lead-panel {
+  border-radius: 13px;
+}
+
+.lead-panel-head {
+  min-height: 44px;
+  padding: 0 11px;
+}
+
+.lead-panel-head h2 {
+  margin-top: 2px;
+  font-size: 13px;
+}
+
+.status-tabs {
+  gap: 2px;
+  padding: 2px;
+  border-radius: 9px;
+}
+
+.status-tabs button {
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 6px;
+  font-size: 8px;
+}
+
+.status-tabs b {
+  padding: 1px 4px;
+  font-size: 8px;
+}
+
+.filter-deck {
+  padding: 9px 11px;
+  gap: 6px;
+}
+
+.filter-deck input,
+.filter-deck select,
+.filter-search,
+.date-picker,
+.apply-filter,
+.clear-filter {
+  height: 32px;
+  border-radius: 8px;
+  font-size: 10px;
+}
+
+.date-picker span {
+  font-size: 7px;
+}
+
+.clear-filter {
+  min-height: 25px;
+}
+
+.lead-table th {
+  height: 38px;
+  padding: 0 11px;
+  font-size: 9px;
+  letter-spacing: 0.6px;
+}
+
+.lead-table td {
+  height: 58px;
+  padding: 0 11px;
+  font-size: 11px;
+}
+
+.company-cell {
+  gap: 9px;
+}
+
+.company-cell > span,
+.found-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  font-size: 10px;
+}
+
+.company-cell strong,
+.cell-main,
+.date-value {
+  font-size: 11px;
+}
+
+.company-cell small,
+.cell-muted {
+  margin-top: 3px;
+  font-size: 9px;
+}
+
+.company-cell small b {
+  padding: 2px 4px;
+  font-size: 8px;
+}
+
+.state-pill {
+  padding: 4px 7px;
+  font-size: 8px;
+}
+
+.lead-table-foot {
+  min-height: 50px;
+  padding: 8px 12px;
+  font-size: 10px;
+}
+
+.row-size select,
+.page-controls button,
+.page-controls b {
+  height: 29px;
+  font-size: 9px;
+}
+
+.page-controls b {
+  width: 29px;
+}
+
+.import-card {
+  padding: 22px 24px;
+}
+
+.card-heading {
+  gap: 11px;
+}
+
+.card-heading h2 {
+  font-size: 17px;
+}
+
+.card-heading p {
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+.card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  font-size: 16px;
+}
+
+.source-tabs {
+  gap: 9px;
+  margin: 18px 0;
+}
+
+.source-tabs button {
+  min-height: 72px;
+  padding: 11px;
+  grid-template-columns: 38px 1fr 18px;
+  column-gap: 9px;
+  border-radius: 11px;
+}
+
+.source-tabs button > span {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  font-size: 14px;
+}
+
+.source-tabs strong {
+  font-size: 13px;
+}
+
+.source-tabs small {
+  margin-top: 4px;
+  font-size: 10px;
+}
+
+.source-tabs button.active::after {
+  width: 18px;
+  height: 18px;
+  font-size: 9px;
+}
+
+.import-card > label {
+  margin-top: 14px;
+  font-size: 12px;
+}
+
+.import-card label > input {
+  height: 40px;
+  margin-top: 6px;
+  padding: 0 11px;
+  font-size: 12px;
+}
+
+.big-drop {
+  min-height: 190px;
+  margin-top: 7px;
+  border-radius: 13px;
+}
+
+.big-drop > span {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  font-size: 16px;
+}
+
+.big-drop strong {
+  margin-top: 9px;
+  font-size: 14px;
+}
+
+.big-drop small {
+  margin: 5px 0 8px;
+  font-size: 10px;
+}
+
+.big-drop b {
+  padding: 6px 10px;
+  font-size: 10px;
+}
+
+.import-actions {
+  margin-top: 17px;
+  padding-top: 14px;
+}
+
+.secondary-action,
+.primary-action,
+.cancel-export,
+.confirm-export {
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 9px;
+  font-size: 11px;
+}
+
+.find-hero {
+  padding: 22px 24px;
+}
+
+.find-copy h2 {
+  font-size: 18px;
+}
+
+.find-copy p {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.find-form {
+  margin-top: 16px;
+}
+
+.find-form > div,
+.find-form button {
+  height: 44px;
+}
+
+.find-form input,
+.find-form button {
+  font-size: 12px;
+}
+
+.search-hints {
+  margin-top: 11px;
+  font-size: 10px;
+}
+
+.search-hints b {
+  padding: 4px 7px;
+  font-size: 9px;
+}
+
+@media (max-width: 760px) {
+  .sales-page {
+    padding: 20px 15px 36px;
+  }
+
+  .workspace-head h1,
+  .sales-head h1 {
+    font-size: 24px;
+  }
 }
