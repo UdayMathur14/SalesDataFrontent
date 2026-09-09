@@ -25,7 +25,7 @@ app-root {
   z-index: 40;
   width: 252px;
   padding: 22px 16px 16px;
-  color: #edf6f2;
+  color: #636b67;
   background: var(--nav);
   display: flex;
   flex-direction: column;
@@ -84,7 +84,7 @@ app-root {
   display: none;
   border: 0;
   background: transparent;
-  color: white;
+  color: rgb(57, 54, 54);
   font-size: 23px;
 }
 .environment-pill {
@@ -521,7 +521,7 @@ app-root {
   font-size: 11px;
 }
 .table-card tbody tr:hover {
-  background: #fbfdfc;
+  background: #5e6160;
 }
 .table-card th.check,
 .table-card td.check {

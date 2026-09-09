@@ -156,7 +156,7 @@ select:focus-visible {
   width: 42%;
   border-radius: inherit;
   background: linear-gradient(90deg, #315f8c, #58a0b2);
-  animation: loader-progress 1.15s ease-in-out infinite;
+  animation: loader-progress 1.30s ease-in-out infinite;
 }
 
 @keyframes loader-rotate {
@@ -190,11 +190,11 @@ select:focus-visible {
 /* Polished navigation shell — scoped to the application sidebar. */
 app-root .app-nav {
   padding: 16px 12px 12px;
-  border-color: #c6d5df;
+  border-color: #01070c;
   background:
-    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.94), transparent 220px),
-    linear-gradient(180deg, #f0f6f9 0%, #e3edf3 100%);
-  box-shadow: 16px 0 42px rgba(46, 72, 94, 0.13);
+    radial-gradient(circle at 10% 0%, rgba(255, 187, 174, 0.24), transparent 230px),
+    linear-gradient(180deg, #889cae 0%, #171c20 54%, #86a4bf 100%);
+  box-shadow: 16px 0 42px rgba(37, 53, 67, 0.22);
 }
 
 app-root .nav-identity {
@@ -202,7 +202,7 @@ app-root .nav-identity {
   padding: 4px 7px 15px;
   align-items: center;
   gap: 11px;
-  border-bottom: 1px solid #c9d7e0;
+  border-bottom: 1px solid rgba(182, 211, 226, 0.14);
 }
 
 app-root .identity-mark {
@@ -210,11 +210,11 @@ app-root .identity-mark {
   height: 38px;
   flex: 0 0 38px;
   padding: 0;
-  border: 1px solid #284e72;
+  border: 1px solid #f1c574;
   border-radius: 12px;
-  color: #fff;
-  background: linear-gradient(145deg, #3d6d97, #234967);
-  box-shadow: 0 7px 16px rgba(36, 76, 109, 0.2);
+  color: #d3edff;
+  background: linear-gradient(145deg, #f5d085, #e4a943);
+  box-shadow: 0 8px 20px rgba(8, 24, 38, 0.28);
   display: grid;
   place-items: center;
 }
@@ -232,7 +232,7 @@ app-root .identity-mark b {
 }
 
 app-root .nav-identity strong {
-  color: #1e3347;
+  color: #f5f9fc;
   font-size: 15px;
   font-weight: 800;
   letter-spacing: -0.25px;
@@ -240,7 +240,7 @@ app-root .nav-identity strong {
 
 app-root .nav-identity small {
   margin-top: 3px;
-  color: #687d90;
+  color: #a9bfce;
   font-size: 9.5px;
   line-height: 1.3;
 }
@@ -262,7 +262,7 @@ app-root .nav-group {
 
 app-root .nav-group p {
   margin: 0 10px 7px;
-  color: #58748a;
+  color: #83a9bd;
   font-size: 9px;
   font-weight: 850;
   letter-spacing: 1.35px;
@@ -276,8 +276,8 @@ app-root .nav-group a {
   gap: 10px;
   border: 1px solid transparent;
   border-radius: 13px;
-  color: #3c5368;
-  background: rgba(255, 255, 255, 0.42);
+  color: #d4e1e9;
+  background: rgba(255, 255, 255, 0.035);
   box-shadow: none;
 }
 
@@ -286,15 +286,15 @@ app-root .nav-group a svg {
   height: 34px;
   flex: 0 0 34px;
   padding: 8px;
-  border: 1px solid #bfd0dd;
+  border: 1px solid rgba(154, 194, 213, 0.24);
   border-radius: 10px;
-  color: #456b8c;
-  background: rgba(249, 252, 254, 0.72);
+  color: #acd0df;
+  background: rgba(207, 232, 241, 0.08);
   transition: 0.18s ease;
 }
 
 app-root .nav-group a strong {
-  color: #2b4054;
+  color: #f1f6f9;
   font-size: 12px;
   font-weight: 780;
 }
@@ -302,27 +302,27 @@ app-root .nav-group a strong {
 app-root .nav-group a small,
 app-root .nav-group a.active small {
   margin-top: 3px;
-  color: #708598;
+  color: #9db5c4;
   font-size: 9px;
 }
 
 app-root .nav-group a:hover {
-  color: #294b69;
-  border-color: #c1d3df;
-  background: #e8f1f6;
+  color: #fff;
+  border-color: rgba(127, 182, 203, 0.38);
+  background: rgba(55, 105, 132, 0.34);
   transform: translateX(2px);
 }
 
 app-root .nav-group a:hover svg {
-  border-color: #9fb9cd;
-  background: #fff;
+  border-color: rgba(151, 204, 221, 0.48);
+  background: rgba(214, 238, 244, 0.14);
 }
 
 app-root .nav-group a.active {
-  color: #173f63;
-  border-color: #b5ccdd;
-  background: linear-gradient(105deg, #dcebf5, #eef5f8);
-  box-shadow: 0 7px 18px rgba(52, 87, 115, 0.1);
+  color: #fff;
+  border-color: rgba(106, 170, 193, 0.5);
+  background: linear-gradient(105deg, #29617c, #214c67);
+  box-shadow: 0 9px 22px rgba(4, 18, 30, 0.2);
 }
 
 app-root .nav-group a.active::after {
@@ -331,13 +331,13 @@ app-root .nav-group a.active::after {
   inset: 11px auto 11px -2px;
   width: 4px;
   border-radius: 999px;
-  background: #315f8c;
+  background: #f1bd63;
 }
 
 app-root .nav-group a.active svg {
-  color: #fff;
-  border-color: #315f8c;
-  background: #315f8c;
+  color: #17354a;
+  border-color: #efbd67;
+  background: linear-gradient(145deg, #f6d486, #e9ad49);
 }
 
 app-root .ennoble-brand {
@@ -345,13 +345,13 @@ app-root .ennoble-brand {
   min-height: 58px;
   padding: 10px;
   overflow: hidden;
-  border: 1px solid #244b6d;
+  border: 1px solid rgba(137, 188, 206, 0.26);
   border-radius: 14px;
   color: #fff;
   background:
-    radial-gradient(circle at 95% 10%, rgba(116, 168, 207, 0.35), transparent 85px),
-    linear-gradient(135deg, #274e70, #1c384f);
-  box-shadow: 0 10px 25px rgba(31, 62, 88, 0.2);
+    radial-gradient(circle at 95% 10%, rgba(107, 193, 190, 0.2), transparent 85px),
+    linear-gradient(135deg, rgba(43, 91, 114, 0.82), rgba(18, 49, 68, 0.92));
+  box-shadow: 0 10px 25px rgba(4, 20, 33, 0.24);
   display: grid;
   grid-template-columns: 36px 1fr;
   align-items: center;
@@ -363,8 +363,8 @@ app-root .ennoble-mark {
   height: 36px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 11px;
-  color: #23445f;
-  background: #f3f7fa;
+  color: #17364d;
+  background: #f2c56f;
   display: grid;
   place-items: center;
   font-size: 14px;
@@ -378,7 +378,7 @@ app-root .ennoble-brand > div {
 }
 
 app-root .ennoble-brand small {
-  color: #b9ccdb;
+  color: #a9c4d1;
   font-size: 7.5px;
   font-weight: 750;
   letter-spacing: 0.8px;
@@ -400,8 +400,8 @@ app-root .ennoble-brand i {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #a9d5b9;
-  box-shadow: 0 0 0 3px rgba(169, 213, 185, 0.14);
+  background: #70d7ba;
+  box-shadow: 0 0 0 3px rgba(112, 215, 186, 0.15);
 }
 
 @media (max-width: 720px) {
