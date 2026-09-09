@@ -6,7 +6,7 @@
       <p>Search, review and export clean or blocked lead records from one workspace.</p>
     </div>
     <div class="workspace-actions">
-      <a class="action-button secondary" routerLink="/sales/import">
+      <a class="action-button secondary upload-leads-action" routerLink="/sales/import">
         <svg viewBox="0 0 24 24">
           <path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
         </svg>
@@ -60,8 +60,8 @@
   <section class="lead-panel">
     <div class="lead-panel-head">
       <div>
-        <span class="section-kicker">RECORDS</span>
-        <h2>Sales lead data</h2>
+        <span class="section-kicker"></span>
+        <h2>Lead Records</h2>
       </div>
       <div class="status-tabs">
         <button [class.active]="tab() === 'All'" (click)="setTab('All')">
@@ -131,7 +131,7 @@
       <button class="apply-filter" (click)="search()">Apply</button>
       <button
         class="clear-filter"
-        title="Reset filters"
+        title="Clear filters"
         (click)="
           reset();
           q.value = '';
@@ -142,7 +142,7 @@
           to.value = ''
         "
       >
-        Reset
+        Clear
       </button>
     </div>
 

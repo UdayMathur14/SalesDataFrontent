@@ -4,7 +4,7 @@
       <h1>Upload Leads</h1>
       <span>Upload Excel records and let the system classify every row automatically.</span>
     </div>
-    <button class="outline-action" (click)="downloadTemplate()">
+    <button class="outline-action template-download-action" (click)="downloadTemplate()">
       Download {{ mode() === 'Event' ? 'event' : 'sales' }} template
     </button>
   </div>
@@ -66,6 +66,14 @@
         <h2>Latest import result</h2>
         <p>Summary from your latest upload.</p>
       </div>
+      <button
+        class="primary-action result-export"
+        type="button"
+        [disabled]="exportingResult()"
+        (click)="exportResult()"
+      >
+        {{ exportingResult() ? 'Exporting…' : 'Export result' }}
+      </button>
     </div>
     <div class="result-summary">
       <article>

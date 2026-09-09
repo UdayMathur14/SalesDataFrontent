@@ -6,8 +6,8 @@
       <p class="subhead">Review and maintain every customer account from one reliable source.</p>
     </div>
     <div class="head-buttons">
-      <button class="btn secondary" (click)="downloadTemplate()">Download template</button
-      ><label class="btn secondary upload"
+      <button class="btn secondary download-template-action" (click)="downloadTemplate()">Download template</button
+      ><label class="btn secondary upload upload-excel-action"
         >Import Excel<input type="file" accept=".xlsx,.xls" (change)="importExcel($event)" /></label
       ><button class="btn primary" (click)="openCreate()">Add customer</button>
     </div>

@@ -115,6 +115,11 @@ export class SalesDataService {
   template(mode: 'Standard' | 'Event') {
     return this.http.get(`${this.base}/templates/${mode}`, { responseType: 'blob' });
   }
+  exportImportResult(result: SalesImportResult) {
+    return this.http.post(`${this.base}/import-results/export`, result, {
+      responseType: 'blob',
+    });
+  }
   export(filters: SalesFilters, format: 'Xlsx' | 'Csv') {
     return this.http.get(`${this.base}/export`, {
       params: this.params({ ...filters, format }),

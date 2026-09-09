@@ -1088,6 +1088,10 @@
   padding: 16px 18px;
   border-bottom: 1px solid #dfe7e3;
 }
+.result-export {
+  margin-left: auto;
+  flex: 0 0 auto;
+}
 .clean-empty {
   min-height: 180px;
   display: flex;
@@ -3108,6 +3112,92 @@
   }
 }
 
+/* Filter fit and final button sizing. */
+.filter-deck .clear-filter {
+  grid-column: auto;
+  justify-self: stretch;
+  width: auto;
+  min-height: 0;
+  height: 32px;
+  border: 1px solid #b9cad7;
+  border-radius: 7px;
+  color: #38556f;
+  background: #f7fafc;
+  text-decoration: none;
+}
+
+.date-picker {
+  height: 34px;
+  align-self: center;
+}
+
+.date-picker > span,
+.date-picker span {
+  top: 3px;
+  font-size: 7px;
+  line-height: 1;
+}
+
+.filter-deck .date-picker .filter-date {
+  height: 32px;
+  padding: 9px 8px 1px;
+  font-size: 10px;
+  line-height: 18px;
+}
+
+@media (min-width: 900px) and (max-width: 1300px) {
+  .filter-deck {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .filter-search {
+    grid-column: span 6;
+  }
+
+  .filter-deck > select {
+    grid-column: span 2;
+  }
+
+  .date-picker,
+  .apply-filter,
+  .clear-filter {
+    grid-column: span 3;
+  }
+}
+
+.secondary-action,
+.primary-action,
+.cancel-export,
+.confirm-export {
+  height: 32px;
+  padding: 0 11px;
+  border-radius: 7px;
+  font-size: 10px;
+}
+
+.find-form button {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 10px;
+}
+
+.export-panel-head button {
+  width: 30px;
+  height: 30px;
+}
+
+.row-size select,
+.page-controls button,
+.page-controls b {
+  height: 26px;
+  font-size: 8px;
+}
+
+.page-controls b {
+  width: 26px;
+}
+
 .lead-table .email-link,
 .lead-table .phone-value {
   color: #285a86;
@@ -3501,4 +3591,76 @@
   .sales-head h1 {
     font-size: 24px;
   }
+}
+
+/* Keep compact button dimensions authoritative after all page-specific rules. */
+.apply-filter,
+.filter-deck .clear-filter {
+  height: 30px;
+  min-height: 0;
+  align-self: center;
+  padding: 0 9px;
+  border-radius: 7px;
+  font-size: 9px;
+}
+
+.filter-deck .date-picker {
+  height: 34px;
+  align-self: center;
+}
+
+.filter-deck .date-picker .filter-date {
+  height: 32px;
+  padding: 9px 8px 1px;
+  font-size: 10px;
+  line-height: 18px;
+}
+
+@media (min-width: 900px) and (max-width: 1300px) {
+  .filter-deck .date-picker {
+    grid-column: span 3;
+  }
+
+  .filter-deck .apply-filter {
+    grid-column: 10 / span 2;
+    grid-row: 2;
+  }
+
+  .filter-deck .clear-filter {
+    grid-column: 12;
+    grid-row: 2;
+  }
+}
+
+.secondary-action,
+.primary-action,
+.cancel-export,
+.confirm-export {
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 7px;
+  font-size: 9px;
+}
+
+.find-form button {
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 7px;
+  font-size: 9px;
+}
+
+.export-panel-head button {
+  width: 28px;
+  height: 28px;
+}
+
+.row-size select,
+.page-controls button,
+.page-controls b {
+  height: 26px;
+  font-size: 8px;
+}
+
+.page-controls b {
+  width: 26px;
 }

@@ -15,6 +15,7 @@ export class SalesImport {
   readonly message = signal('');
   readonly error = signal('');
   readonly uploading = signal(false);
+  readonly exportingResult = signal(false);
   readonly result = signal<SalesImportResult | null>(null);
   eventName = '';
   chooseFile(e: Event) {
@@ -54,6 +55,22 @@ export class SalesImport {
       this.fail(e);
     } finally {
       this.uploading.set(false);
+    }
+  }
+  async exportResult() {
+    const result = this.result();
+    if (!result) return;
+
+    this.exportingResult.set(true);
+    this.error.set('');
+    try {
+      const blob = await firstValueFrom(this.store.exportImportResult(result));
+      this.download(blob, 'LeadImportResults.xlsx');
+      this.notify('Import result exported successfully');
+    } catch (e) {
+      this.fail(e);
+    } finally {
+      this.exportingResult.set(false);
     }
   }
   private download(blob: Blob, name: string) {

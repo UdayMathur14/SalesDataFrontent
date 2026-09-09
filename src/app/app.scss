@@ -1125,11 +1125,11 @@ input[type='checkbox'] {
 .logout-button {
   height: 38px;
   padding: 0 13px;
-  border: 1px solid #eadde7;
+  border: 1px solid #712a42;
   border-radius: 12px;
-  color: #a13f61;
-  background: linear-gradient(145deg, #fff, #fff4f7);
-  box-shadow: 0 7px 18px rgba(130, 46, 76, 0.08);
+  color: #fff;
+  background: #8a3652;
+  box-shadow: 0 7px 18px rgba(96, 30, 53, 0.2);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1154,10 +1154,11 @@ input[type='checkbox'] {
 }
 
 .logout-button:hover {
-  border-color: #f1bdca;
-  color: #bd365e;
+  border-color: #5d2035;
+  color: #fff;
+  background: #702940;
   transform: translateY(-1px);
-  box-shadow: 0 10px 23px rgba(152, 47, 82, 0.14);
+  box-shadow: 0 10px 23px rgba(96, 30, 53, 0.25);
 }
 
 @media (max-width: 520px) {
@@ -1817,18 +1818,58 @@ input[type='checkbox'] {
 
 .topbar-right {
   margin-left: auto;
+  gap: 6px;
+}
+
+.dashboard-button {
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid #173753;
+  border-radius: 8px;
+  color: #fff;
+  background: #254f78;
+  box-shadow: 0 5px 13px rgba(23, 55, 83, 0.24);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 780;
+}
+
+.dashboard-button svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.dashboard-button:hover {
+  color: #fff;
+  background: #193e60;
 }
 
 .logout-button {
-  height: 34px;
-  padding: 0 12px;
-  border-radius: 10px;
-  font-size: 11px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font-size: 10px;
 }
 
 .logout-button svg {
   width: 15px;
   height: 15px;
+}
+
+@media (max-width: 520px) {
+  .dashboard-button {
+    width: 30px;
+    padding: 0;
+  }
+
+  .dashboard-button span {
+    display: none;
+  }
 }
 
 .topbar {

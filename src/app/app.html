@@ -3,8 +3,8 @@
 
   <aside class="app-nav" [class.open]="sidebarOpen()">
     <div class="nav-identity">
-      <div class="identity-mark"><span></span><span></span><span></span></div>
-      <div><strong>Lead Data Module</strong><small>Upload Data and view Blocked/Clean Leads</small></div>
+      <div class="identity-mark" aria-hidden="true"><b>LD</b></div>
+      <div><strong>Lead Data Module</strong></div>
       <button class="nav-close" aria-label="Close navigation" (click)="closeSidebar()">
         ×
       </button>
@@ -47,6 +47,11 @@
       </div>
     </nav>
 
+    <div class="ennoble-brand" aria-label="Ennoble IP">
+      <span class="ennoble-mark">EP</span>
+      <div><small></small><strong>Ennoble IP</strong></div>
+      <i aria-hidden="true"></i>
+    </div>
   </aside>
 
   <main class="app-main">
@@ -62,6 +67,15 @@
         </button>
       </div>
       <div class="topbar-right">
+        <button class="dashboard-button" type="button" (click)="openDashboard()" title="Dashboard">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          <span>Dashboard</span>
+        </button>
         <button class="logout-button" type="button" (click)="logout()" title="Logout">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M10 17l5-5-5-5M15 12H3M14 3h4a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-4" />
@@ -73,3 +87,18 @@
     <router-outlet></router-outlet>
   </main>
 </div>
+
+@if (loader.visible()) {
+  <div class="global-loader" role="status" aria-live="polite" [attr.aria-label]="loader.message()">
+    <div class="global-loader-card">
+      <div class="loader-orbit" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="global-loader-copy">
+        <strong>{{ loader.message() }}</strong>
+        <span>Please wait, this may take a moment.</span>
+      </div>
+      <div class="loader-progress" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+}

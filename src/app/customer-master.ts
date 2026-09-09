@@ -10,6 +10,7 @@ import {
   CustomerRequest,
   CustomerResponse,
 } from './customer-api.service';
+import { GlobalLoaderService } from './global-loader.service';
 type CustomerView = {
   id: number;
   code: string;
@@ -36,6 +37,7 @@ type CustomerView = {
 export class CustomerMaster implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(CustomerApiService);
+  private readonly globalLoader = inject(GlobalLoaderService);
   readonly Math = Math;
   readonly customers = signal<CustomerView[]>([]);
   readonly totalCount = signal(0);
@@ -209,30 +211,39 @@ export class CustomerMaster implements OnInit {
       this.fail(e);
     }
   }
-  exportCustomers() {
-    const d = this.customers().map((c) => ({
-      'Customer Code': c.code,
-      'Company Name': c.company,
-      'Contact Person': c.contact,
-      Email: c.email,
-      'Country Code': c.countryCode,
-      'Contact Number': c.phone,
-      Country: c.country,
-      State: c.state,
-      City: c.city,
-      Category: c.category,
-      'Created By': c.createdBy,
-      'Created On': this.date(c.createdOn),
-    }));
-    if (!d.length) {
+  async exportCustomers() {
+    if (!this.customers().length) {
       this.message('There are no loaded customer records to export.', 'error');
       return;
     }
-    const ws = XLSX.utils.json_to_sheet(d),
-      wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Customers');
-    XLSX.writeFile(wb, 'customer-master-current-page.xlsx');
-    this.message(`${d.length} loaded records exported.`, 'success');
+
+    const taskId = this.globalLoader.begin('Preparing customer export…');
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    try {
+      const data = this.customers().map((c) => ({
+        'Customer Code': c.code,
+        'Company Name': c.company,
+        'Contact Person': c.contact,
+        Email: c.email,
+        'Country Code': c.countryCode,
+        'Contact Number': c.phone,
+        Country: c.country,
+        State: c.state,
+        City: c.city,
+        Category: c.category,
+        'Created By': c.createdBy,
+        'Created On': this.date(c.createdOn),
+      }));
+      const worksheet = XLSX.utils.json_to_sheet(data),
+        workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Customers');
+      XLSX.writeFile(workbook, 'customer-master-current-page.xlsx');
+      this.message(`${data.length} loaded records exported.`, 'success');
+    } catch {
+      this.message('Unable to export customer records.', 'error');
+    } finally {
+      this.globalLoader.end(taskId);
+    }
   }
   async importExcel(e: Event) {
     const input = e.target as HTMLInputElement,
