@@ -8,7 +8,8 @@ export const httpLoadingInterceptor: HttpInterceptorFn = (request, next) => {
   const url = request.url.toLowerCase();
   let message = 'Loading records…';
 
-  if (url.includes('/import')) message = 'Uploading and validating records…';
+  if (url.includes('/fetch-internal-permissions')) message = 'Validating your access…';
+  else if (url.includes('/import')) message = 'Uploading and validating records…';
   else if (url.includes('/template')) message = 'Preparing template download…';
   else if (url.includes('/export') || request.responseType === 'blob')
     message = 'Preparing your download…';

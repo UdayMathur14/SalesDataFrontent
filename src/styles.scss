@@ -440,3 +440,501 @@ app-root .sales-page .upload-leads-action:hover {
   color: #1e574b;
   background: #d5e9e3;
 }
+
+/* Persistent light/dark workspace theme. */
+app-root .theme-button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid #aebfd0;
+  border-radius: 8px;
+  color: #365f82;
+  background: #edf4f9;
+  box-shadow: 0 5px 13px rgba(42, 71, 96, 0.1);
+  display: grid;
+  place-items: center;
+  transition: 0.18s ease;
+}
+
+app-root .theme-button:hover {
+  border-color: #8da9bf;
+  color: #234d70;
+  background: #dceaf3;
+  transform: translateY(-1px);
+}
+
+app-root .theme-button svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+app-root .app-shell.theme-dark {
+  color-scheme: dark;
+  color: #dce7ef;
+  background:
+    radial-gradient(circle at 88% 4%, rgba(45, 104, 135, 0.2), transparent 30rem),
+    linear-gradient(180deg, #0c151f 0%, #111d28 100%);
+}
+
+app-root .theme-dark .app-main {
+  background: transparent;
+}
+
+app-root .theme-dark .topbar {
+  border-color: #293b4b;
+  background: rgba(15, 26, 36, 0.96);
+}
+
+app-root .theme-dark .theme-button {
+  border-color: #d1a955;
+  color: #1a2b38;
+  background: #efc76f;
+  box-shadow: 0 5px 16px rgba(220, 169, 65, 0.18);
+}
+
+app-root .theme-dark .theme-button:hover {
+  border-color: #e2bb66;
+  background: #f6d488;
+}
+
+app-root .theme-dark .app-nav {
+  border-color: #263847;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(44, 108, 128, 0.18), transparent 230px),
+    linear-gradient(180deg, #142432 0%, #0d1924 100%);
+  box-shadow: 18px 0 48px rgba(0, 0, 0, 0.28);
+}
+
+app-root .theme-dark .nav-identity {
+  border-color: rgba(145, 181, 198, 0.18);
+}
+
+app-root .theme-dark .nav-group a {
+  color: #c7d6e0;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+app-root .theme-dark .nav-group a strong {
+  color: #edf4f8;
+}
+
+app-root .theme-dark .nav-group a:hover {
+  border-color: rgba(106, 159, 182, 0.35);
+  background: rgba(47, 95, 119, 0.3);
+}
+
+app-root .theme-dark .nav-group a.active {
+  border-color: rgba(89, 157, 182, 0.5);
+  background: linear-gradient(105deg, #265b73, #1c435a);
+}
+
+app-root .theme-dark .content,
+app-root .theme-dark .sales-page {
+  color: #dce7ef;
+}
+
+app-root .theme-dark .page-head h1,
+app-root .theme-dark .workspace-head h1,
+app-root .theme-dark .sales-head h1,
+app-root .theme-dark .lead-panel-head h2,
+app-root .theme-dark .card-heading h2,
+app-root .theme-dark .drawer-head h2,
+app-root .theme-dark .form-section h3,
+app-root .theme-dark .export-panel h2,
+app-root .theme-dark .export-panel h3 {
+  color: #f0f6fa !important;
+}
+
+app-root .theme-dark .subhead,
+app-root .theme-dark .workspace-head p,
+app-root .theme-dark .sales-head > div > span,
+app-root .theme-dark .card-heading p,
+app-root .theme-dark .form-section > p {
+  color: #9eb0be !important;
+}
+
+app-root .theme-dark .eyebrow,
+app-root .theme-dark .section-kicker,
+app-root .theme-dark .sales-head > div > p {
+  color: #73b7c6 !important;
+}
+
+app-root .theme-dark .stats article,
+app-root .theme-dark .stats article:first-child,
+app-root .theme-dark .lead-overview article,
+app-root .theme-dark .lead-overview .overview-primary,
+app-root .theme-dark .result-summary article {
+  color: #dce7ef;
+  border-color: #2a4052;
+  background: #172634;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.16);
+}
+
+app-root .theme-dark .stats article:nth-child(2),
+app-root .theme-dark .stats article:nth-child(3),
+app-root .theme-dark .stats article:nth-child(4) {
+  background: #172634;
+}
+
+app-root .theme-dark .stats span,
+app-root .theme-dark .stats small,
+app-root .theme-dark .lead-overview article span,
+app-root .theme-dark .lead-overview article small,
+app-root .theme-dark .overview-primary > span,
+app-root .theme-dark .overview-primary > small {
+  color: #9eb0be !important;
+}
+
+app-root .theme-dark .stats strong,
+app-root .theme-dark .lead-overview article strong,
+app-root .theme-dark .overview-primary > strong {
+  color: #f2f7fa !important;
+}
+
+app-root .theme-dark .table-card,
+app-root .theme-dark .lead-panel,
+app-root .theme-dark .sales-card,
+app-root .theme-dark .find-results,
+app-root .theme-dark .find-start,
+app-root .theme-dark .export-panel,
+app-root .theme-dark .drawer {
+  color: #dce7ef;
+  border-color: #293e50;
+  background: #142330;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.22);
+}
+
+app-root .theme-dark .toolbar,
+app-root .theme-dark .filter-deck,
+app-root .theme-dark .lead-panel-head,
+app-root .theme-dark .lead-table-foot,
+app-root .theme-dark .drawer-head,
+app-root .theme-dark .drawer-actions,
+app-root .theme-dark .form-section {
+  border-color: #2a4052;
+  background: #1a2b39;
+}
+
+app-root .theme-dark .searchbox,
+app-root .theme-dark .filters select,
+app-root .theme-dark .icon-btn,
+app-root .theme-dark .filter-deck input,
+app-root .theme-dark .filter-deck select,
+app-root .theme-dark .form-grid input,
+app-root .theme-dark .form-grid select,
+app-root .theme-dark .import-card label > input,
+app-root .theme-dark .source-tabs button,
+app-root .theme-dark .format-choice,
+app-root .theme-dark .big-drop {
+  color: #dce7ef;
+  border-color: #385064;
+  background: #101d28;
+}
+
+app-root .theme-dark input::placeholder {
+  color: #7f93a3;
+}
+
+app-root .theme-dark .source-tabs button.active,
+app-root .theme-dark .format-choice.selected {
+  color: #edf5f8;
+  border-color: #4b8198;
+  background: #203b4b;
+}
+
+app-root .theme-dark .table-card th,
+app-root .theme-dark .lead-table th {
+  color: #b9cad7;
+  border-color: #32495b;
+  background: #223747;
+}
+
+app-root .theme-dark .table-card td,
+app-root .theme-dark .lead-table td {
+  color: #dce7ef;
+  border-color: #273b4b;
+}
+
+app-root .theme-dark .table-card tbody tr,
+app-root .theme-dark .lead-table tbody tr {
+  background: #142330;
+}
+
+app-root .theme-dark .table-card tbody tr:nth-child(even),
+app-root .theme-dark .lead-table tbody tr:nth-child(even) {
+  background: #182a38;
+}
+
+app-root .theme-dark .table-card tbody tr:hover,
+app-root .theme-dark .lead-table tbody tr:hover {
+  background: #203748;
+}
+
+app-root .theme-dark .lead-table-wrap,
+app-root .theme-dark .table-state {
+  background: #142330;
+}
+
+app-root .theme-dark .table-state {
+  color: #dce7ef;
+}
+
+app-root .theme-dark .table-state strong {
+  color: #e8f0f5;
+}
+
+app-root .theme-dark .table-state small {
+  color: #91a5b4;
+}
+
+app-root .theme-dark .empty-grid {
+  color: #79b9dc;
+  border-color: #385064;
+  background: #203748;
+}
+
+app-root .theme-dark .customer strong,
+app-root .theme-dark .normal,
+app-root .theme-dark .cell-main,
+app-root .theme-dark .company-cell strong,
+app-root .theme-dark .date-value,
+app-root .theme-dark .source-tabs strong,
+app-root .theme-dark .big-drop strong,
+app-root .theme-dark .import-card > label {
+  color: #e8f0f5 !important;
+}
+
+app-root .theme-dark .cell-sub,
+app-root .theme-dark .cell-muted,
+app-root .theme-dark .source-tabs small,
+app-root .theme-dark .big-drop small {
+  color: #91a5b4 !important;
+}
+
+app-root .theme-dark .email,
+app-root .theme-dark .email-link,
+app-root .theme-dark .phone-value {
+  color: #79b9dc !important;
+}
+
+app-root .theme-dark .pagination,
+app-root .theme-dark .pagination button,
+app-root .theme-dark .page-controls button,
+app-root .theme-dark .row-size select,
+app-root .theme-dark .secondary-action,
+app-root .theme-dark .cancel-export {
+  color: #cbd9e3;
+  border-color: #385064;
+  background: #172735;
+}
+
+app-root .theme-dark .batches,
+app-root .theme-dark .import-card {
+  background: #172735;
+}
+
+app-root .theme-dark .export-panel-head,
+app-root .theme-dark .export-panel-actions,
+app-root .theme-dark .export-filter-summary,
+app-root .theme-dark .export-count {
+  border-color: #2e4557;
+  background: #192b39;
+}
+
+.global-loader.dark {
+  background: rgba(5, 11, 17, 0.68);
+}
+
+.global-loader.dark .global-loader-card {
+  color: #e7f0f6;
+  border-color: #344c5e;
+  background: #142330;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+}
+
+.global-loader.dark .global-loader-copy span {
+  color: #91a5b4;
+}
+
+@media (max-width: 520px) {
+  app-root .theme-button {
+    width: 30px;
+  }
+}
+
+/* Sidebar visual refinement — colour and surface treatment only.
+   The existing width, spacing, reveal and responsive behaviour stay unchanged. */
+app-root .app-nav {
+  color: #d8e5f0;
+  border-color: #172b3f;
+  background:
+    radial-gradient(circle at 12% -6%, rgba(69, 132, 174, 0.28), transparent 18rem),
+    radial-gradient(circle at 105% 88%, rgba(31, 102, 126, 0.18), transparent 15rem),
+    linear-gradient(180deg, #112235 0%, #0d1b2a 52%, #0a1622 100%);
+  box-shadow: 18px 0 48px rgba(11, 25, 39, 0.26);
+}
+
+app-root .app-nav::after {
+  border-color: rgba(157, 193, 217, 0.08);
+}
+
+app-root .nav-identity {
+  border-bottom-color: rgba(163, 194, 216, 0.14);
+}
+
+app-root .identity-mark {
+  color: #12283a;
+  border-color: #e6b95e;
+  background: linear-gradient(145deg, #ffda85 0%, #e9af49 100%);
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.24),
+    0 0 0 3px rgba(237, 189, 98, 0.08);
+}
+
+app-root .nav-identity strong {
+  color: #f6f9fc;
+}
+
+app-root .nav-identity small {
+  color: #90a7ba;
+}
+
+app-root .nav-group p {
+  color: #78a8c2;
+}
+
+app-root .nav-group a {
+  color: #c8d5df;
+  border-color: rgba(122, 159, 183, 0.08);
+  background: rgba(255, 255, 255, 0.026);
+}
+
+app-root .nav-group a strong {
+  color: #eaf1f6;
+}
+
+app-root .nav-group a small,
+app-root .nav-group a.active small {
+  color: #91a7b8;
+}
+
+app-root .nav-group a svg {
+  color: #9cc5d8;
+  border-color: rgba(128, 176, 199, 0.22);
+  background: rgba(126, 183, 207, 0.08);
+}
+
+app-root .nav-group a:hover {
+  color: #f4f8fb;
+  border-color: rgba(112, 171, 201, 0.36);
+  background: rgba(54, 103, 132, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(156, 202, 223, 0.04);
+}
+
+app-root .nav-group a:hover strong {
+  color: #ffffff;
+}
+
+app-root .nav-group a.active {
+  color: #ffffff;
+  border-color: rgba(105, 180, 212, 0.52);
+  background: linear-gradient(105deg, #1e5976 0%, #17425f 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 10px 24px rgba(2, 14, 23, 0.24);
+}
+
+app-root .nav-group a.active::before {
+  background: #f2bd5f;
+  box-shadow: 0 0 16px rgba(242, 189, 95, 0.36);
+}
+
+app-root .nav-group a.active strong {
+  color: #ffffff;
+}
+
+app-root .nav-group a.active small {
+  color: #b3c7d4;
+}
+
+app-root .nav-group a.active svg {
+  color: #18364b;
+  border-color: #f3c56d;
+  background: linear-gradient(145deg, #ffda86 0%, #eeb958 100%);
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.18);
+}
+
+app-root .ennoble-brand {
+  border-color: rgba(111, 176, 202, 0.28);
+  background:
+    radial-gradient(circle at 94% 8%, rgba(72, 174, 182, 0.2), transparent 8rem),
+    linear-gradient(135deg, #153a52 0%, #0d293d 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 12px 28px rgba(2, 14, 23, 0.22);
+}
+
+app-root .ennoble-brand strong {
+  color: #f5f9fc;
+}
+
+app-root .ennoble-brand small {
+  color: #8fb4c6;
+}
+
+app-root .ennoble-brand i {
+  background: #69d6b5;
+  box-shadow: 0 0 0 5px rgba(105, 214, 181, 0.1);
+}
+
+app-root .ennoble-mark {
+  color: #153047;
+  border-color: rgba(255, 220, 145, 0.72);
+  background: linear-gradient(145deg, #ffda85 0%, #e9af49 100%);
+}
+
+app-root .nav-close {
+  color: #d4e4ee;
+  border-color: rgba(137, 177, 199, 0.24);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+app-root .nav-close:hover {
+  color: #ffffff;
+  border-color: rgba(150, 198, 220, 0.44);
+  background: rgba(69, 124, 153, 0.3);
+}
+
+/* Dark mode keeps the same sidebar language, with a deeper application shell. */
+app-root .theme-dark .app-nav {
+  color: #d6e3ed;
+  border-color: #20364a;
+  background:
+    radial-gradient(circle at 10% -5%, rgba(55, 126, 160, 0.2), transparent 18rem),
+    radial-gradient(circle at 105% 88%, rgba(24, 86, 108, 0.16), transparent 15rem),
+    linear-gradient(180deg, #0b1825 0%, #08131e 100%);
+  box-shadow: 20px 0 54px rgba(0, 0, 0, 0.34);
+}
+
+app-root .theme-dark .nav-group a {
+  color: #c4d3de;
+  border-color: rgba(113, 151, 176, 0.08);
+  background: rgba(255, 255, 255, 0.022);
+}
+
+app-root .theme-dark .nav-group a:hover {
+  color: #f5f9fc;
+  border-color: rgba(102, 165, 195, 0.32);
+  background: rgba(43, 88, 116, 0.34);
+}
+
+app-root .theme-dark .nav-group a.active {
+  color: #ffffff;
+  border-color: rgba(94, 171, 205, 0.5);
+  background: linear-gradient(105deg, #1a506d 0%, #123a55 100%);
+}

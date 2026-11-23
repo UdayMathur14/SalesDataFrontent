@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../environments/environment';
+import { AuthSessionService } from './auth-session.service';
 export type LeadState = 'Clean' | 'Blocked';
 export type SalesLead = {
   id: number;
@@ -73,6 +74,7 @@ export type SalesFilters = {
 @Injectable({ providedIn: 'root' })
 export class SalesDataService {
   private readonly http = inject(HttpClient);
+  private readonly authSession = inject(AuthSessionService);
   private readonly base = `${environment.apiUrl}/sales`;
   readonly cleanItems = signal<SalesLead[]>([]);
   readonly blockedItems = signal<SalesLead[]>([]);
@@ -109,6 +111,7 @@ export class SalesDataService {
     const form = new FormData();
     form.append('file', file);
     form.append('mode', mode);
+    form.append('actor', this.authSession.requireUserName());
     if (eventName) form.append('eventName', eventName);
     return this.http.post<SalesImportResult>(`${this.base}/import`, form);
   }
@@ -132,7 +135,9 @@ export class SalesDataService {
     });
   }
   filterOptions() {
-    return this.http.get<FilterOptions>(`${this.base}/filter-options`);
+    return this.http.get<FilterOptions>(`${this.base}/filter-options`, {
+      params: { actor: this.authSession.requireUserName() },
+    });
   }
   private params(value: Record<string, unknown>) {
     let p = new HttpParams();

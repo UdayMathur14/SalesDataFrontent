@@ -7,8 +7,13 @@
     </div>
     <div class="head-buttons">
       <button class="btn secondary download-template-action" (click)="downloadTemplate()">Download template</button
-      ><label class="btn secondary upload upload-excel-action"
-        >Import Excel<input type="file" accept=".xlsx,.xls" (change)="importExcel($event)" /></label
+      ><label class="btn secondary upload upload-excel-action" [class.disabled]="importing()"
+        >{{ importing() ? 'Importing…' : 'Import Excel' }}<input
+          type="file"
+          accept=".xlsx,.xls"
+          [disabled]="importing()"
+          (change)="importExcel($event)"
+        /></label
       ><button class="btn primary" (click)="openCreate()">Add customer</button>
     </div>
   </div>
@@ -172,6 +177,107 @@
     </div>
   </section>
 </section>
+<div class="customer-import-backdrop" *ngIf="importResultOpen()" (click)="closeImportResult()">
+  <ng-container *ngIf="importResult() as result">
+    <section
+      class="customer-import-result"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="customer-import-title"
+      (click)="$event.stopPropagation()"
+    >
+      <header class="customer-import-head">
+        <div class="customer-import-title">
+          <span [class.has-errors]="result.rejectedCount">{{
+            result.rejectedCount ? '!' : '✓'
+          }}</span>
+          <div>
+            <p>EXCEL IMPORT COMPLETE</p>
+            <h2 id="customer-import-title">Customer import result</h2>
+            <small>{{ importedFileName() }}</small>
+          </div>
+        </div>
+        <button type="button" aria-label="Close import result" (click)="closeImportResult()">×</button>
+      </header>
+
+      <div class="customer-import-summary">
+        <article class="imported">
+          <span>✓</span>
+          <div><small>Imported successfully</small><strong>{{ result.insertedCount }}</strong></div>
+        </article>
+        <article class="rejected" [class.zero]="result.rejectedCount === 0">
+          <span>!</span>
+          <div><small>Rejected rows</small><strong>{{ result.rejectedCount }}</strong></div>
+        </article>
+        <article class="processed">
+          <span>Σ</span>
+          <div>
+            <small>Total processed</small
+            ><strong>{{ result.insertedCount + result.rejectedCount }}</strong>
+          </div>
+        </article>
+      </div>
+
+      <div class="customer-import-success" *ngIf="result.rejectedCount === 0">
+        <span>✓</span>
+        <div>
+          <strong>All rows imported successfully</strong>
+          <small>The customer list has been refreshed with the new records.</small>
+        </div>
+      </div>
+
+      <div class="customer-import-errors" *ngIf="result.rejectedCount > 0">
+        <div class="customer-import-errors-head">
+          <div>
+            <strong>Rows that need attention</strong>
+            <small>Correct these Excel rows and upload them again.</small>
+          </div>
+          <button type="button" (click)="exportRejectedRows()">Download rejected rows</button>
+        </div>
+        <div class="customer-import-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Excel row</th>
+                <th>Company</th>
+                <th>Email / contact</th>
+                <th>Reason</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of result.rejectedRecords">
+                <td><b>#{{ row.excelRow || '—' }}</b></td>
+                <td>{{ row.companyName || '—' }}</td>
+                <td>
+                  <strong>{{ row.customerEmail || '—' }}</strong
+                  ><small>{{ row.customerNumber || 'No contact number' }}</small>
+                </td>
+                <td><span>{{ row.errorMessage }}</span></td>
+              </tr>
+              <tr *ngIf="!result.rejectedRecords.length">
+                <td colspan="4" class="customer-import-no-details">
+                  <strong>Row-wise error details were not returned by the backend.</strong>
+                  <small
+                    >{{ result.rejectedCount }} row{{ result.rejectedCount === 1 ? '' : 's' }} were
+                    rejected. Please verify the API response or upload the corrected file again.</small
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <footer class="customer-import-actions">
+        <span *ngIf="result.rejectedCount">
+          {{ result.insertedCount }} saved · {{ result.rejectedCount }} not saved
+        </span>
+        <span *ngIf="!result.rejectedCount">{{ result.insertedCount }} records saved</span>
+        <button class="btn primary" type="button" (click)="closeImportResult()">Done</button>
+      </footer>
+    </section>
+  </ng-container>
+</div>
 <div class="drawer-backdrop" *ngIf="drawerOpen()" (click)="drawerOpen.set(false)"></div>
 <aside class="drawer" [class.open]="drawerOpen()">
   <div class="drawer-head">

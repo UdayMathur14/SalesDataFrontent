@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import {
   CountryOption,
   CustomerApiService,
+  CustomerImportResult,
   CustomerRequest,
   CustomerResponse,
 } from './customer-api.service';
@@ -52,7 +53,11 @@ export class CustomerMaster implements OnInit {
   readonly selected = signal<number[]>([]);
   readonly toast = signal<{ text: string; type: 'success' | 'error' } | null>(null);
   readonly loading = signal(false);
+  readonly importing = signal(false);
   readonly apiError = signal('');
+  readonly importResult = signal<CustomerImportResult | null>(null);
+  readonly importResultOpen = signal(false);
+  readonly importedFileName = signal('');
   readonly countries = signal<CountryOption[]>([]);
   readonly categories = ['CORPORATE', 'LAWFIRM', 'LAW FIRM', 'UNIVERSITY', 'PCT', 'INDIVIDUAL'];
   readonly paged = computed(() => this.customers());
@@ -249,18 +254,57 @@ export class CustomerMaster implements OnInit {
     const input = e.target as HTMLInputElement,
       file = input.files?.[0];
     if (!file) return;
+    const loaderId = this.globalLoader.begin('Importing customer records…');
+    this.importing.set(true);
+    this.apiError.set('');
+    this.importResult.set(null);
+    this.importedFileName.set(file.name);
     try {
       const result = await firstValueFrom(this.api.import(file));
+      this.importResult.set(result);
+      this.importResultOpen.set(true);
       this.message(
-        `${result.insertedCount} imported, ${result.rejectedCount} rejected.`,
-        'success',
+        result.rejectedCount
+          ? `Import completed with ${result.rejectedCount} rejected row${result.rejectedCount === 1 ? '' : 's'}.`
+          : `${result.insertedCount} customer${result.insertedCount === 1 ? '' : 's'} imported successfully.`,
+        result.rejectedCount ? 'error' : 'success',
       );
       await this.load();
     } catch (err) {
       this.fail(err);
     } finally {
+      this.importing.set(false);
+      this.globalLoader.end(loaderId);
       input.value = '';
     }
+  }
+  closeImportResult() {
+    this.importResultOpen.set(false);
+  }
+  exportRejectedRows() {
+    const result = this.importResult();
+    if (!result?.rejectedRecords.length) return;
+
+    const worksheet = XLSX.utils.json_to_sheet(
+      result.rejectedRecords.map((row) => ({
+        'Excel Row': row.excelRow,
+        'Company Name': row.companyName,
+        Email: row.customerEmail,
+        'Contact Number': row.customerNumber || '',
+        'Error Message': row.errorMessage,
+      })),
+    );
+    worksheet['!cols'] = [
+      { wch: 12 },
+      { wch: 30 },
+      { wch: 34 },
+      { wch: 20 },
+      { wch: 42 },
+    ];
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Rejected Customers');
+    XLSX.writeFile(workbook, 'customer-import-rejected-rows.xlsx');
+    this.message('Rejected rows downloaded.', 'success');
   }
   private request(): CustomerRequest {
     const v = this.form.getRawValue();
